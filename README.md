@@ -37,7 +37,8 @@ An interactive landing page themed around **Zenless Zone Zero (Version 3.2: Thei
 │   ├── page1.html      # Main landing page content markup
 │   └── page2.html      # Second page (dummy) markup
 ├── pictures/           # Image assets & logos
-└── videos/             # Background video assets & trailers```
+└── videos/             # Background video assets & trailers
+```
 
 ## ⚠️ Disclaimer
 
