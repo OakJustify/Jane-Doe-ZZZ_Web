@@ -7,8 +7,8 @@ An interactive landing page themed around **Zenless Zone Zero (Version 3.2: Thei
 ![Preview Desktop](pictures/preview.png)
 
 ## 🎬 Videos
-![Preview Desktop](pictures/Background_Page1.gif)
-![Preview Desktop](pictures/Background_Page1_shorts.gif)
+![Preview Desktop](pictures/bg-video.gif)
+![Preview Desktop](pictures/bg-video_shorts.gif)
 
 ## 🚀 Key Features
 
