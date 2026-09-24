@@ -2,8 +2,13 @@
 
 An interactive landing page themed around **Zenless Zone Zero (Version 3.2: Their Secret Histories)**, built using pure HTML, CSS, and Vanilla JavaScript with a modular Single Page Application (SPA) architecture.
 
+## 📸 Screenshot
 ![Preview Desktop](pictures/zzz_gamelogo.png)
 ![Preview Desktop](pictures/preview.png)
+
+## 🎬 Videos
+![Preview Desktop](videos/Background_Page1.webm)
+![Preview Desktop](videos/Background_Page1_shorts.webm)
 
 ## 🚀 Key Features
 
