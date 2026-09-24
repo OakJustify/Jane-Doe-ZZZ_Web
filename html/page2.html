@@ -1,0 +1,21 @@
+<!-- HALAMAN 2 : DUMMY (isi menyusul) -->
+<div id="page-2" class="page" data-page="page2">
+
+  <div class="page__content">
+    <div class="page2-container">
+      <p class="page2-title">Page 2</p>
+      <p class="page2-text">Dummy page. Content coming soon.</p>
+      <button class="page2-back" type="button" data-action="goto" data-page="page1">Back to page 1</button>
+    </div>
+  </div>
+
+  <!-- Dot navigasi samping (markup sama dengan page 1, dot aktif = halaman ini) -->
+  <nav class="side-nav" aria-label="Pages">
+    <button class="side-dot" type="button" data-action="goto" data-page="page1" aria-label="Page 1"></button>
+    <button class="side-dot is-active" type="button" data-action="goto" data-page="page2" aria-label="Page 2" aria-current="page"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 3 (not available yet)"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 4 (not available yet)"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 5 (not available yet)"></button>
+  </nav>
+
+</div>

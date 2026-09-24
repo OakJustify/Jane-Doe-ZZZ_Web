@@ -1,0 +1,161 @@
+<!-- HALAMAN 1 : Landing utama -->
+<div id="page-1" class="page" data-page="page1">
+
+  <!-- 1. BACKGROUND VIDEO
+       Satu elemen <video>. Sumbernya dipilih oleh js/page1.js sesuai lebar layar:
+       - mobile (<= 640px)  -> Background_Page1_shorts.webm
+       - tablet & desktop   -> Background_Page1.webm
+       Jadi HP tidak ikut mengunduh video desktop yang besar. -->
+  <div class="page__bg-wrapper" aria-hidden="true">
+    <video class="bg-video" muted playsinline autoplay preload="metadata"
+           data-src-desktop="videos/Background_Page1.webm"
+           data-src-mobile="videos/Background_Page1_shorts.webm"
+           data-start-desktop="4.5"></video>
+    <div class="bg-overlay"></div>
+  </div>
+
+  <!-- 2. KONTEN UI UTAMA -->
+  <div class="page__content">
+
+    <!-- HEADER -->
+    <header class="zzz-header">
+      <div class="header__logos">
+        <img class="logo-studio" src="pictures/studio_logo.png" alt="EZ Studio">
+        <div class="logo-divider" aria-hidden="true"></div>
+        <img class="logo-zzz" src="pictures/zzz_gamelogo.png" alt="Zenless Zone Zero">
+      </div>
+
+      <nav class="header__nav" aria-label="Site tools">
+        <button class="nav-btn" type="button" data-action="soon" data-msg="News feed is coming soon" aria-label="News">
+          <img src="pictures/signal.png" alt="">
+        </button>
+        <button class="nav-btn is-muted" type="button" data-action="sound" aria-label="Unmute background video" aria-pressed="false">
+          <img src="pictures/musical-note.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="share" aria-label="Share this page">
+          <img src="pictures/share.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="soon" data-msg="Merch shop is coming soon" aria-label="Shop">
+          <img src="pictures/grocery-store.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="soon" data-msg="Language options are coming soon" aria-label="Language">
+          <img src="pictures/language.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="goto" data-page="page1" aria-label="Home">
+          <img src="pictures/home.png" alt="">
+        </button>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <main class="hero">
+
+      <!-- Judul: TEKS (font), bukan gambar -->
+      <div class="hero__title">
+        <div class="title__row">
+          <h1 class="title">
+            <span class="title__word title__word--silver">Jane Doe<span class="title__tag" aria-hidden="true">New update</span></span>
+            <span class="title__word title__word--gold">Secret Histories</span>
+          </h1>
+          <button class="play-trailer-btn" type="button" data-trailer-open aria-label="Play trailer">
+            <span class="play-trailer-btn__icon" aria-hidden="true"></span>
+          </button>
+        </div>
+        <p class="title__sub"><span>Zenless Zone Zero version 3.2</span></p>
+      </div>
+
+      <!-- Tombol download utama.
+           Belum ada URL -> pakai <button>. Kalau URL sudah siap, ganti jadi
+           <a class="cta-download" href="URL_KAMU"> ... </a> -->
+      <div class="hero__cta">
+        <button class="cta-download" type="button" data-action="soon" data-msg="Download link is coming soon">
+          <span class="cta-download__flag" aria-hidden="true">Click!</span>
+          <span class="cta-download__label">Download</span>
+        </button>
+      </div>
+
+      <!-- Panel platform lain -->
+      <aside class="stores is-open" aria-label="More platforms">
+        <div class="stores__panel" id="stores-panel">
+          <ul class="stores__grid">
+            <li><button class="store-badge" type="button" data-action="soon" data-msg="PlayStation link is coming soon"><span class="store-badge__name">PS5</span></button></li>
+            <li><button class="store-badge" type="button" data-action="soon" data-msg="Xbox link is coming soon"><span class="store-badge__name">Xbox Series X|S</span></button></li>
+            <li><button class="store-badge" type="button" data-action="soon" data-msg="App Store link is coming soon"><span class="store-badge__cap">Download on the</span><span class="store-badge__name">App Store</span></button></li>
+            <li><button class="store-badge" type="button" data-action="soon" data-msg="Google Play link is coming soon"><span class="store-badge__cap">Get it on</span><span class="store-badge__name">Google Play</span></button></li>
+            <li><button class="store-badge" type="button" data-action="soon" data-msg="HoYoPlay link is coming soon"><span class="store-badge__cap">Download via</span><span class="store-badge__name">HoYoPlay</span></button></li>
+            <li><button class="store-badge" type="button" data-action="soon" data-msg="Epic Games Store link is coming soon"><span class="store-badge__name">Epic Store</span></button></li>
+            <li><button class="store-badge" type="button" data-action="soon" data-msg="Steam link is coming soon"><span class="store-badge__name">Steam</span></button></li>
+            <li class="store-badge store-badge--empty" aria-hidden="true"></li>
+          </ul>
+        </div>
+        <button class="stores__toggle" type="button" data-stores-toggle aria-expanded="true" aria-controls="stores-panel" aria-label="Collapse platform list">
+          <span class="stores__chevron" aria-hidden="true"></span>
+        </button>
+      </aside>
+
+      <!-- Lencana rating (dibuat dengan HTML/CSS, BUKAN asset resmi) -->
+      <div class="hero__rating">
+        <div class="rating" role="img"
+             aria-label="Age rating badge: Teen. Content descriptors: Violence, Suggestive Themes, Mild Blood, Mild Language. In-Game Purchases, includes random items.">
+          <div class="rating__main">
+            <div class="rating__grade">
+              <span class="rating__teen">Teen</span>
+              <span class="rating__letter">T</span>
+              <span class="rating__org">Rating</span>
+            </div>
+            <ul class="rating__descriptors">
+              <li>Violence</li>
+              <li>Suggestive Themes</li>
+              <li>Mild Blood</li>
+              <li>Mild Language</li>
+            </ul>
+          </div>
+          <p class="rating__note">In-Game Purchases (Includes Random Items)</p>
+        </div>
+        <p class="hero__via">Download via HoYoPlay (PC)</p>
+      </div>
+
+      <!-- Platform yang didukung.
+           Label teks singkat sebagai PLACEHOLDER. Kalau mau logo platform resmi,
+           ganti isi <span> dengan <img> (dan beri comment: asset dari internet). -->
+      <div class="hero__platforms">
+        <p class="platforms__heading">Available on</p>
+        <ul class="platforms__icons">
+          <li title="PlayStation"><span aria-hidden="true">PS</span><span class="visually-hidden">PlayStation</span></li>
+          <li title="Xbox"><span aria-hidden="true">XB</span><span class="visually-hidden">Xbox</span></li>
+          <li title="iOS"><span aria-hidden="true">iOS</span><span class="visually-hidden">iOS</span></li>
+          <li title="Android"><span aria-hidden="true">AN</span><span class="visually-hidden">Android</span></li>
+          <li title="PC"><span aria-hidden="true">PC</span><span class="visually-hidden">PC</span></li>
+          <li title="Epic Games Store"><span aria-hidden="true">EP</span><span class="visually-hidden">Epic Games Store</span></li>
+          <li title="Steam"><span aria-hidden="true">ST</span><span class="visually-hidden">Steam</span></li>
+        </ul>
+      </div>
+
+      <p class="hero__note">Fan-made site. Not affiliated with or endorsed by HoYoverse.</p>
+
+    </main>
+
+    <!-- Petunjuk pindah ke halaman berikutnya -->
+    <button class="scroll-hint" type="button" data-action="goto" data-page="page2" aria-label="Go to next page">
+      <span class="scroll-hint__chevrons" aria-hidden="true"></span>
+    </button>
+
+  </div>
+
+  <!-- DOT NAVIGASI SAMPING. Halaman yang belum dibuat = disabled -->
+  <nav class="side-nav" aria-label="Pages">
+    <button class="side-dot is-active" type="button" data-action="goto" data-page="page1" aria-label="Page 1" aria-current="page"></button>
+    <button class="side-dot" type="button" data-action="goto" data-page="page2" aria-label="Page 2"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 3 (not available yet)"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 4 (not available yet)"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 5 (not available yet)"></button>
+  </nav>
+
+  <!-- Trailer: memakai video desktop milikmu (dimuat hanya saat tombol play ditekan) -->
+  <dialog class="trailer" aria-label="Trailer">
+    <button class="trailer__close" type="button" data-trailer-close aria-label="Close trailer">Close</button>
+    <video class="trailer__video" controls playsinline preload="none"
+           data-src="videos/Background_Page1.webm"></video>
+  </dialog>
+
+</div>

@@ -1,0 +1,732 @@
+/* ============================================
+   PAGE 1 : LANDING UTAMA
+   Semua selector diawali #page-1 supaya tidak bocor ke halaman lain.
+   Logo, header, tombol nav, dot samping ada di global.css.
+
+   Layout:
+   - desktop (>= 1024px): grid 3 kolom x 3 baris, menempel di bawah
+       [rating ] [   judul   ] [        ]
+       [platform] [ download ] [ toko   ]
+       [catatan ............ ] [        ]
+   - tablet / mobile: satu kolom bertumpuk, rata tengah
+   ============================================ */
+
+#page-1 .hero {
+  --col-side: clamp(172px, 11.3vw, 240px);
+  --store-w: clamp(300px, 26.5vw, 520px);
+
+  margin-top: auto;
+  padding-top: 32px;
+  padding-bottom: calc(clamp(40px, 6.5vh, 68px) + env(safe-area-inset-bottom, 0px));
+
+  display: grid;
+  grid-template-columns: var(--col-side) minmax(0, 1fr) var(--col-side);
+  grid-template-areas:
+    "rating title  ."
+    "avail  cta    stores"
+    "note   note   .";
+  column-gap: clamp(16px, 2vw, 40px);
+  row-gap: clamp(12px, 2.4vh, 26px);
+  align-items: end;
+}
+
+#page-1 .hero__title    { grid-area: title; }
+#page-1 .hero__cta      { grid-area: cta; }
+#page-1 .stores         { grid-area: stores; }
+#page-1 .hero__rating   { grid-area: rating; }
+#page-1 .hero__platforms{ grid-area: avail; }
+#page-1 .hero__note     { grid-area: note; }
+
+/* ============================================
+   JUDUL (teks + gradient, bukan gambar)
+   ============================================ */
+#page-1 .hero__title {
+  --title-size: clamp(2.4rem, 5vw, 7.5rem);
+  position: relative;
+  justify-self: center;
+  text-align: center;
+  min-width: 0;
+}
+
+#page-1 .title__row {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.2em 0.35em;
+  font-size: var(--title-size);
+}
+
+#page-1 .title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1em;
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+  filter:
+    drop-shadow(0 0.05em 0.1em rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 0.45em rgba(122, 12, 28, 0.4));
+}
+
+#page-1 .title__word {
+  display: inline-block;
+  padding-bottom: 0.08em; /* supaya ekor huruf tidak terpotong background-clip */
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+#page-1 .title__word--silver {
+  position: relative; /* jadi patokan stiker "New update" */
+  background-image: linear-gradient(180deg, #ffffff 0%, #dadde8 48%, #8b91a6 100%);
+}
+
+#page-1 .title__word--gold {
+  white-space: nowrap;
+  background-image: linear-gradient(180deg, #fff4cc 0%, #efcf82 42%, #b68632 100%);
+}
+
+/* Stiker merah di pojok kiri atas judul */
+#page-1 .title__tag {
+  position: absolute;
+  top: -0.3em;
+  left: -0.22em;
+  z-index: 2;
+  padding: 0.12em 0.85em 0.16em;
+  background: var(--zzz-red);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 0.2em;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  transform: rotate(-7deg);
+  clip-path: polygon(0 14%, 100% 0, 96% 86%, 3% 100%);
+  pointer-events: none;
+}
+
+/* Tombol play trailer: lingkaran merah di ujung judul */
+#page-1 .play-trailer-btn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(var(--title-size) * 0.56);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid var(--zzz-red);
+  background: rgba(20, 0, 6, 0.4);
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+#page-1 .play-trailer-btn__icon {
+  --tri: calc(var(--title-size) * 0.11);
+  width: 0;
+  height: 0;
+  margin-left: calc(var(--tri) * 0.25);
+  border-style: solid;
+  border-width: var(--tri) 0 var(--tri) calc(var(--tri) * 1.7);
+  border-color: transparent transparent transparent var(--zzz-red);
+  transition: border-left-color 0.2s ease;
+}
+
+#page-1 .play-trailer-btn:hover {
+  background: var(--zzz-red);
+  box-shadow: 0 0 0 5px rgba(230, 34, 52, 0.28);
+}
+
+#page-1 .play-trailer-btn:hover .play-trailer-btn__icon {
+  border-left-color: #fff;
+}
+
+#page-1 .play-trailer-btn:active {
+  transform: scale(0.94);
+}
+
+/* Baris kecil di bawah judul, diapit garis emas */
+#page-1 .title__sub {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: clamp(6px, 1vh, 12px);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.15vw, 1.35rem);
+  letter-spacing: 0.3em;
+  color: var(--zzz-gold);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+#page-1 .title__sub::before,
+#page-1 .title__sub::after {
+  content: '';
+  flex: 1 1 0;
+  height: 1px;
+}
+
+#page-1 .title__sub::before {
+  background: linear-gradient(to right, transparent, rgba(232, 199, 119, 0.85));
+}
+
+#page-1 .title__sub::after {
+  background: linear-gradient(to left, transparent, rgba(232, 199, 119, 0.85));
+}
+
+#page-1 .title__sub span {
+  white-space: nowrap;
+}
+
+/* ============================================
+   TOMBOL DOWNLOAD
+   ============================================ */
+#page-1 .hero__cta {
+  justify-self: center;
+  padding-top: 0.6rem;
+}
+
+#page-1 .cta-download {
+  position: relative;
+  display: inline-block;
+  padding: 0.28em 1.7em 0.34em;
+  font-family: var(--font-ui);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 2.9vw, 3.6rem);
+  line-height: 1;
+  color: #fff;
+  background: linear-gradient(180deg, #f5253a 0%, #c30f22 100%);
+  box-shadow: 0 0 0 3px #fff, 6px 7px 0 3px #1a0408;
+  transform: skewX(-13deg);
+  transition: transform 0.2s var(--ease-out), filter 0.2s ease;
+}
+
+#page-1 .cta-download__label {
+  display: block;
+  transform: skewX(13deg);
+  text-shadow: 2px 2px 0 #6f0a15;
+}
+
+#page-1 .cta-download__flag {
+  position: absolute;
+  top: -0.62em;
+  right: -0.5em;
+  z-index: 1;
+  padding: 0.1em 0.6em 0.14em;
+  background: #fff;
+  color: #111;
+  font-size: 0.36em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: skewX(13deg) rotate(5deg);
+}
+
+#page-1 .cta-download:hover {
+  transform: skewX(-13deg) translateY(-3px);
+  filter: brightness(1.12);
+}
+
+#page-1 .cta-download:active {
+  transform: skewX(-13deg) translateY(1px);
+}
+
+/* ============================================
+   PANEL PLATFORM LAIN (kanan bawah)
+   ============================================ */
+#page-1 .stores {
+  justify-self: end;
+  width: var(--store-w);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: end;
+  column-gap: 6px;
+  transition: grid-template-columns 0.4s var(--ease-out);
+}
+
+#page-1 .stores:not(.is-open) {
+  grid-template-columns: 0fr auto;
+}
+
+#page-1 .stores__panel {
+  min-width: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 6px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: opacity 0.3s ease, visibility 0s;
+}
+
+#page-1 .stores:not(.is-open) .stores__panel {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0s 0.4s;
+}
+
+#page-1 .stores__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  min-width: calc(var(--store-w) - 40px);
+  padding: 10px;
+}
+
+#page-1 .store-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(36px, 2.9vw, 52px);
+  padding: 4px 6px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 5px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  line-height: 1.05;
+  text-align: center;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+#page-1 button.store-badge:hover {
+  background: #1b1b20;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+#page-1 .store-badge__cap {
+  font-size: clamp(0.5rem, 0.55vw, 0.68rem);
+  font-weight: 500;
+  color: var(--zzz-text-dim);
+}
+
+#page-1 .store-badge__name {
+  font-size: clamp(0.72rem, 0.85vw, 1rem);
+}
+
+/* Slot kosong bermotif garis, penanda "platform lain menyusul" */
+#page-1 .store-badge--empty {
+  border: 0;
+  background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.16) 0 3px, transparent 3px 7px);
+  opacity: 0.55;
+}
+
+#page-1 .stores__toggle {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  width: clamp(18px, 1.4vw, 26px);
+  background: rgba(128, 128, 134, 0.78);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+#page-1 .stores__toggle:hover {
+  background: rgba(170, 170, 176, 0.9);
+}
+
+#page-1 .stores__chevron {
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-left: 0.2rem;
+  border-left: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  transform: rotate(45deg);
+  transition: transform 0.35s var(--ease-out);
+}
+
+#page-1 .stores:not(.is-open) .stores__chevron {
+  margin-left: -0.2rem;
+  transform: rotate(-135deg);
+}
+
+/* ============================================
+   RATING + PLATFORM YANG DIDUKUNG (kiri bawah)
+   ============================================ */
+#page-1 .hero__rating {
+  justify-self: start;
+  width: 100%;
+}
+
+/* Lencana rating dibuat dengan CSS. Ukuran font pakai satuan cqw
+   supaya ikut mengecil/membesar mengikuti lebar kotaknya. */
+#page-1 .rating {
+  container-type: inline-size;
+  width: 100%;
+  background: #fff;
+  color: #111;
+  border: 2px solid #111;
+  box-shadow: 0 0 0 2px #fff;
+  font-family: var(--font-ui);
+  text-align: left;
+}
+
+#page-1 .rating__main {
+  display: grid;
+  grid-template-columns: 36% 1fr;
+}
+
+#page-1 .rating__grade {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-right: 2px solid #111;
+}
+
+#page-1 .rating__teen,
+#page-1 .rating__org {
+  background: #111;
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#page-1 .rating__teen { font-size: 9cqw; padding: 1cqw 0; }
+#page-1 .rating__org  { font-size: 6.4cqw; padding: 0.8cqw 0; }
+
+#page-1 .rating__letter {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 30cqw;
+  line-height: 1.02;
+}
+
+#page-1 .rating__descriptors {
+  align-self: center;
+  padding: 2cqw 3cqw;
+  font-size: 7.4cqw;
+  font-weight: 600;
+  line-height: 1.16;
+}
+
+#page-1 .rating__note {
+  padding: 1.4cqw 2cqw;
+  border-top: 2px solid #111;
+  font-size: 5.3cqw;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+}
+
+#page-1 .hero__via {
+  margin-top: 0.45rem;
+  font-size: clamp(0.72rem, 0.85vw, 0.95rem);
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+#page-1 .hero__platforms {
+  container-type: inline-size; /* judul "Available on" ikut lebar kolomnya (cqw) */
+  width: 100%;
+}
+
+#page-1 .platforms__heading {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 14cqw;
+  line-height: 0.95;
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+#page-1 .platforms__icons {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(3px, 0.3vw, 6px);
+  margin-top: 0.4rem;
+}
+
+#page-1 .platforms__icons li {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: #fff;
+  color: #111;
+  border-radius: 4px;
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: clamp(0.5rem, 0.66vw, 0.8rem);
+}
+
+#page-1 .hero__note {
+  font-size: clamp(0.72rem, 0.85vw, 0.95rem);
+  color: var(--zzz-text-dim);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* ============================================
+   PETUNJUK HALAMAN BERIKUTNYA
+   ============================================ */
+#page-1 .scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 36px;
+  transform: translateX(-50%);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+#page-1 .scroll-hint:hover {
+  opacity: 1;
+}
+
+#page-1 .scroll-hint__chevrons {
+  position: relative;
+  width: 26px;
+  height: 22px;
+}
+
+#page-1 .scroll-hint__chevrons::before,
+#page-1 .scroll-hint__chevrons::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+#page-1 .scroll-hint__chevrons::before { top: -5px; }
+#page-1 .scroll-hint__chevrons::after  { top: 4px; }
+
+@media (max-height: 640px) {
+  #page-1 .scroll-hint { display: none; }
+}
+
+/* ============================================
+   TRAILER (dialog)
+   ============================================ */
+#page-1 .trailer {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(94vw, 1200px);
+  max-height: 90dvh;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--zzz-border);
+  color: #fff;
+}
+
+#page-1 .trailer::backdrop {
+  background: rgba(8, 2, 5, 0.88);
+}
+
+#page-1 .trailer__video {
+  display: block;
+  width: 100%;
+  max-height: 86dvh;
+  background: #000;
+}
+
+#page-1 .trailer__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  padding: 6px 16px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--zzz-border);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+#page-1 .trailer__close:hover {
+  background: var(--zzz-red);
+}
+
+/* ============================================
+   ANIMASI MASUK (satu momen saja: judul dulu, lalu sisanya)
+   ============================================ */
+@keyframes p1-rise {
+  from { opacity: 0; transform: translateY(18px); filter: blur(8px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes p1-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#page-1.active .hero__title {
+  animation: p1-rise 1s var(--ease-out) 0.15s both;
+}
+
+#page-1.active .hero__cta,
+#page-1.active .stores,
+#page-1.active .hero__rating,
+#page-1.active .hero__platforms,
+#page-1.active .hero__note {
+  animation: p1-fade 0.7s ease 0.7s both;
+}
+
+/* ============================================
+   TABLET & MOBILE : satu kolom bertumpuk (< 1024px)
+   ============================================ */
+@media (max-width: 1023px) {
+  #page-1 .hero {
+    width: 100%;
+    max-width: 780px;
+    margin-inline: auto;
+    padding-top: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "title  title"
+      "cta    cta"
+      "stores stores"
+      "rating avail"
+      "note   note";
+    column-gap: 20px;
+    row-gap: 22px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  #page-1 .hero__title {
+    --title-size: clamp(2.6rem, 7.6vw, 5.2rem);
+    width: 100%;
+  }
+
+  #page-1 .stores {
+    justify-self: stretch;
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  #page-1 .stores__toggle {
+    display: none;
+  }
+
+  #page-1 .stores__grid {
+    min-width: 0;
+  }
+
+  #page-1 .store-badge {
+    min-height: 44px;
+  }
+
+  #page-1 .store-badge__cap  { font-size: 0.62rem; }
+  #page-1 .store-badge__name { font-size: 0.9rem; }
+
+  #page-1 .hero__rating {
+    justify-self: end;
+    width: min(100%, 210px);
+  }
+
+  #page-1 .hero__platforms {
+    justify-self: start;
+    width: min(100%, 210px);
+    text-align: left;
+  }
+
+  #page-1 .platforms__icons li { font-size: 0.62rem; }
+
+  #page-1 .hero__via,
+  #page-1 .hero__note {
+    font-size: 0.85rem;
+  }
+
+  #page-1 .title__sub {
+    font-size: 1rem;
+    letter-spacing: 0.24em;
+  }
+
+  #page-1 .cta-download {
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+  }
+
+  #page-1 .scroll-hint {
+    display: none;
+  }
+}
+
+/* HP / tablet kecil posisi landscape (layar pendek): judul & tombol dikecilkan
+   supaya judul, tombol download, dan panel platform lebih cepat terlihat */
+@media (max-width: 1023px) and (max-height: 520px) {
+  #page-1 .hero {
+    padding-top: 12px;
+    row-gap: 14px;
+  }
+
+  #page-1 .hero__title {
+    --title-size: clamp(2rem, 11vh, 3.4rem);
+  }
+
+  #page-1 .cta-download {
+    font-size: 2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  #page-1 .hero {
+    max-width: 480px;
+    row-gap: 20px;
+  }
+
+  #page-1 .hero__title {
+    --title-size: clamp(2.5rem, 12.4vw, 4rem);
+  }
+
+  #page-1 .title__word--gold {
+    white-space: normal; /* boleh turun baris di layar sempit */
+  }
+
+  #page-1 .title__tag {
+    font-size: 0.24em;
+  }
+
+  #page-1 .title__sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+    gap: 0.6rem;
+  }
+
+  #page-1 .title__sub span {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* Layar sangat sempit: rating dan platform ditumpuk */
+@media (max-width: 559px) {
+  #page-1 .hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "title"
+      "cta"
+      "stores"
+      "rating"
+      "avail"
+      "note";
+  }
+
+  #page-1 .hero__rating,
+  #page-1 .hero__platforms {
+    justify-self: center;
+  }
+
+  #page-1 .hero__platforms {
+    width: min(100%, 250px);
+    text-align: center;
+  }
+}
+
+@media (max-width: 359px) {
+  #page-1 .stores__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

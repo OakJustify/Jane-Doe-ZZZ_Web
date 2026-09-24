@@ -1,0 +1,8 @@
+/* ============================================
+   MAIN CSS (ROOT)
+   Hanya memanggil css lain. Urutan penting:
+   global dulu, lalu css per halaman.
+   ============================================ */
+@import url('global.css');
+@import url('page1.css');
+@import url('page2.css');

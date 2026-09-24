@@ -1,0 +1,46 @@
+/* ============================================
+   PAGE 2 : DUMMY PLACEHOLDER STYLES
+   Hanya dipakai di html/page2.html. Ganti nanti
+   saat isi halaman 2 sudah dirancang.
+   ============================================ */
+
+#page-2 {
+  background-color: #12141d;
+}
+
+#page-2 .page2-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  color: var(--zzz-yellow);
+}
+
+#page-2 .page2-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+}
+
+#page-2 .page2-text {
+  font-size: 1.1rem;
+  color: var(--zzz-text-dim);
+}
+
+#page-2 .page2-back {
+  margin-top: 12px;
+  padding: 8px 22px;
+  border: 1px solid var(--zzz-border);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--zzz-text);
+  transition: background-color 0.2s ease;
+}
+
+#page-2 .page2-back:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
