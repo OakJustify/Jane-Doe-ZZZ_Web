@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Zenless Zone Zero — Their Secret Histories | Fan-Made Landing</title>
+  <meta name="description" content="Fan-made landing page for Zenless Zone Zero: Their Secret Histories. New Eridu needs you. Not affiliated with HoYoverse.">
+  <link rel="icon" type="image/png" href="pictures/janedoe_favicon.png">
+
+  <!-- Same Google Fonts request the rest of the project already makes:
+       Barlow Condensed (display) + Barlow (body). Zero extra network cost. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@400;500;600&display=swap">
+
+  <!-- Compiled Tailwind v4 (see css/tailwind.src.css + `npm run build`) -->
+  <link rel="stylesheet" href="css/tailwind.css">
+</head>
+
+<body class="bg-ink text-white antialiased">
+
+  <a href="#news" class="sr-only-focusable absolute left-4 top-4 z-[60] clip-corner-sm bg-neon px-5 py-2 font-display font-bold uppercase tracking-widest text-white">
+    Skip to content
+  </a>
+
+  <!-- ==============================================================
+       NAVIGATION — sticky, backdrop-blur, solidifies on scroll
+       ============================================================== -->
+  <header id="site-header"
+          class="fixed inset-x-0 top-0 z-50 transition-all duration-300
+                 data-[scrolled=true]:border-b data-[scrolled=true]:border-white/10
+                 data-[scrolled=true]:bg-black/50 data-[scrolled=true]:backdrop-blur-md data-[scrolled=true]:shadow-2xl">
+
+    <!-- Accent hairline that lights up when scrolled -->
+    <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-neon to-transparent opacity-0 transition-opacity duration-300 data-[scrolled=true]:opacity-100" aria-hidden="true"></div>
+
+    <nav class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8"
+         aria-label="Primary">
+
+      <!-- Logo lockup -->
+      <a href="#top" class="group flex shrink-0 items-center gap-3" aria-label="Zenless Zone Zero — back to top">
+        <img src="pictures/studio_logo.png" alt="EZ Studio" width="90" height="28" class="h-6 w-auto opacity-90 transition-opacity group-hover:opacity-100 sm:h-7">
+        <span class="hidden h-8 w-px bg-white/15 sm:block" aria-hidden="true"></span>
+        <img src="pictures/zzz_gamelogo.png" alt="Zenless Zone Zero" width="120" height="32" class="h-7 w-auto sm:h-8">
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden items-center gap-1 md:flex">
+        <li>
+          <a href="#news"
+             class="relative block px-4 py-2 font-display text-lg font-bold uppercase tracking-widest text-white/70 transition-colors duration-200 hover:text-neon
+                    after:absolute after:inset-x-4 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-neon after:transition-transform after:duration-300 hover:after:scale-x-100">
+            News
+          </a>
+        </li>
+        <li>
+          <a href="#agents"
+             class="relative block px-4 py-2 font-display text-lg font-bold uppercase tracking-widest text-white/70 transition-colors duration-200 hover:text-neon
+                    after:absolute after:inset-x-4 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-neon after:transition-transform after:duration-300 hover:after:scale-x-100">
+            Agents
+          </a>
+        </li>
+        <li>
+          <a href="#media"
+             class="relative block px-4 py-2 font-display text-lg font-bold uppercase tracking-widest text-white/70 transition-colors duration-200 hover:text-neon
+                    after:absolute after:inset-x-4 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-neon after:transition-transform after:duration-300 hover:after:scale-x-100">
+            Media
+          </a>
+        </li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+
+        <!-- Mute / unmute background video -->
+        <button type="button" id="sound-toggle" data-muted="true"
+                aria-pressed="true" aria-label="Toggle background audio"
+                class="group relative grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 bg-black/50 backdrop-blur-md transition-all duration-300
+                       hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+          <svg class="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M40 0H12L0 12v28h28L40 28V0Z" stroke="#ff5500" stroke-width="1.5" fill="rgba(255,85,0,0.08)"/>
+          </svg>
+          <!-- speaker on -->
+          <svg data-icon="on" class="h-5 w-5 text-volt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+          </svg>
+          <!-- muted -->
+          <svg data-icon="off" class="hidden h-5 w-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 6M21 9l-5 6"/>
+          </svg>
+        </button>
+
+        <!-- Primary CTA -->
+        <a href="#pre-register"
+           class="btn-skew group hidden bg-neon text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,85,0,0.6)] sm:block">
+          <span class="clip-notch-r px-5 py-2.5 font-display text-base font-extrabold uppercase italic tracking-widest">
+            Play Now
+          </span>
+        </a>
+
+        <!-- Mobile menu toggle -->
+        <button type="button" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
+                class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 bg-black/50 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] md:hidden">
+          <svg data-icon="open" class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h10"/>
+          </svg>
+          <svg data-icon="close" class="hidden h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile drawer -->
+    <div id="mobile-menu" data-open="false"
+         class="hidden overflow-hidden border-t border-white/10 bg-black/70 backdrop-blur-md transition-all duration-300 md:hidden">
+      <ul class="flex flex-col px-4 py-3">
+        <li><a href="#news"   class="block border-b border-white/5 py-3 font-display text-xl font-bold uppercase tracking-widest text-white/80 transition-colors hover:text-neon">News</a></li>
+        <li><a href="#agents" class="block border-b border-white/5 py-3 font-display text-xl font-bold uppercase tracking-widest text-white/80 transition-colors hover:text-neon">Agents</a></li>
+        <li><a href="#media"  class="block py-3 font-display text-xl font-bold uppercase tracking-widest text-white/80 transition-colors hover:text-neon">Media</a></li>
+        <li class="pt-2 sm:hidden">
+          <a href="#pre-register" class="btn-skew block bg-neon text-center">
+            <span class="clip-notch-r w-full justify-center px-5 py-3 font-display text-lg font-extrabold uppercase italic tracking-widest">Play Now</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ==============================================================
+         HERO — full-screen background video + dual CTA + social rail
+         ============================================================== -->
+    <section class="relative isolate flex min-h-[100svh] items-end overflow-hidden pb-16 pt-28 sm:pb-20 lg:pb-24">
+
+      <!-- ── Background media layer (lowest) ────────────────────── -->
+      <div class="absolute inset-0 -z-10 isolate">
+        <!-- Desktop / tablet: the real video. 47 MB, so it is hidden below
+             md where phones fall back to the poster image below. -->
+        <video data-hero-video
+               class="absolute inset-0 -z-10 hidden h-full w-full object-cover md:block"
+               autoplay loop muted playsinline preload="metadata"
+               poster="pictures/hero-poster.webp"
+               aria-hidden="true" tabindex="-1">
+          <source src="videos/Background_Page1.webm" type="video/webm">
+        </video>
+
+        <!-- Mobile: lightweight poster only, no video download -->
+        <img src="pictures/hero-poster.webp" alt=""
+             width="1280" height="720" fetchpriority="high" decoding="async"
+             class="absolute inset-0 -z-10 h-full w-full object-cover md:hidden">
+
+        <!-- Readability scrim (never remove: text sits on moving footage) -->
+        <div class="absolute inset-0 bg-linear-to-t from-[#0b0d12] via-[#0b0d12]/60 to-transparent" aria-hidden="true"></div>
+        <div class="absolute inset-0 bg-ink/35" aria-hidden="true"></div>
+
+        <!-- Subtle blueprint grid + CRT sweep for the cyberpunk feel -->
+        <div class="grid-bg absolute inset-0 opacity-60" aria-hidden="true"></div>
+        <div class="scan-sweep animate-scan absolute inset-x-0 h-1/3" aria-hidden="true"></div>
+
+        <!-- Radial neon bloom bottom-left -->
+        <div class="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-neon/20 blur-[120px]" aria-hidden="true"></div>
+      </div>
+
+      <!-- ── Floating social rail (desktop) ─────────────────────── -->
+      <ul class="rail absolute left-6 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-6 lg:flex" aria-label="Social media">
+        <li><a href="#" data-social="x" aria-label="Follow on X"
+               class="grid h-11 w-11 place-items-center clip-corner-sm border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+          <svg class="h-4 w-4 text-white/80 transition-colors group-hover:text-neon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7 8 8.2 12h-6.4l-5-7.3L5.9 22H2.8l7.5-8.6L2.4 2h6.6l4.5 6.7L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z"/></svg>
+        </a></li>
+        <li><a href="#" data-social="discord" aria-label="Join our Discord"
+               class="grid h-11 w-11 place-items-center clip-corner-sm border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+          <svg class="h-5 w-5 text-white/80" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.4c1.7.4 2.4 1 3.3 1.6a14 14 0 0 0-12.9 0C6.6 4.4 8 3.8 9.6 3.4L9.4 3a19.7 19.7 0 0 0-4.9 1.4C1.4 9 0.7 13.5 1 17.9A19.9 19.9 0 0 0 7 20.6l.9-1.5c-.7-.3-1.4-.6-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l.9 1.5a19.8 19.8 0 0 0 6-2.7c.4-5.1-.8-9.5-3.7-13.5ZM8.5 15.3c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Zm7 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Z"/></svg>
+        </a></li>
+        <li><a href="#" data-social="youtube" aria-label="Subscribe on YouTube"
+               class="grid h-11 w-11 place-items-center clip-corner-sm border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+          <svg class="h-5 w-5 text-white/80" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg>
+        </a></li>
+        <li><a href="#" data-social="tiktok" aria-label="Follow on TikTok"
+               class="grid h-11 w-11 place-items-center clip-corner-sm border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+          <svg class="h-4 w-4 text-white/80" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.1v13.2a2.5 2.5 0 1 1-2.5-2.5c.3 0 .5 0 .8.1V9.6a5.7 5.7 0 1 0 4.8 5.6V8.9a6.5 6.5 0 0 0 3.8 1.2V7a3.8 3.8 0 0 1-3.8-5Z"/></svg>
+        </a></li>
+      </ul>
+
+      <!-- ── Hero content ───────────────────────────────────────── -->
+      <div class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+
+          <p class="eyebrow flex items-center gap-3 text-sm text-volt">
+            <span class="inline-block h-2 w-2 animate-blink rounded-full bg-volt" aria-hidden="true"></span>
+            Version 2.6 — New Eridu
+          </p>
+
+          <h1 class="mt-4 font-display text-[clamp(2.75rem,11vw,8.5rem)] font-extrabold uppercase italic leading-[0.82] tracking-tight">
+            <span class="block text-outline">Zenless</span>
+            <span class="block">Zone <span class="text-neon drop-shadow-[0_0_28px_rgba(255,85,0,0.55)]">Zero</span></span>
+          </h1>
+
+          <p class="mt-3 font-display text-2xl font-bold uppercase italic tracking-[0.2em] text-white/70 sm:text-3xl">
+            Their Secret Histories
+          </p>
+
+          <p class="mt-5 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
+            The city never sleeps — and neither do its mysteries. Team up with Agents of New Eridu,
+            chase Hollows across every district, and write your own ending in the city that
+            refuses to stand still.
+          </p>
+
+          <!-- Dual CTA -->
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+
+            <!-- Secondary: opens the trailer <dialog> -->
+            <button type="button" data-trailer-open
+                    class="btn-skew sheen group relative bg-black/50 backdrop-blur-md transition-all duration-300
+                           hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <span class="sheen-layer group-hover:animate-sheen" aria-hidden="true"></span>
+              <span class="clip-notch-r relative items-center gap-3 border border-white/10 px-7 py-3.5 font-display text-xl font-extrabold uppercase italic tracking-widest">
+                <svg class="h-4 w-4 text-neon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
+                Watch Trailer
+              </span>
+            </button>
+
+            <!-- Primary -->
+            <a href="#pre-register"
+               class="btn-skew group relative bg-neon transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <span class="sheen-layer group-hover:animate-sheen" aria-hidden="true"></span>
+              <span class="clip-notch-r relative items-center gap-3 px-7 py-3.5 font-display text-xl font-extrabold uppercase italic tracking-widest">
+                Pre-Register
+                <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </div>
+
+          <!-- Platform strip -->
+          <ul class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-2 text-mist" aria-label="Available platforms">
+            <li class="eyebrow text-xs text-white/40">Available on</li>
+            <li class="font-display text-sm font-bold uppercase tracking-widest">PS5</li>
+            <li class="font-display text-sm font-bold uppercase tracking-widest">Xbox</li>
+            <li class="font-display text-sm font-bold uppercase tracking-widest">iOS</li>
+            <li class="font-display text-sm font-bold uppercase tracking-widest">Android</li>
+            <li class="font-display text-sm font-bold uppercase tracking-widest">PC</li>
+            <li class="font-display text-sm font-bold uppercase tracking-widest">Epic</li>
+            <li class="font-display text-sm font-bold uppercase tracking-widest">Steam</li>
+          </ul>
+        </div>
+
+        <!-- Mobile-only social row (rail is desktop-only) -->
+        <ul class="mt-10 flex gap-3 lg:hidden" aria-label="Social media">
+          <li><a href="#" data-social="x" aria-label="Follow on X" class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]"><svg class="h-4 w-4 text-white/80" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7 8 8.2 12h-6.4l-5-7.3L5.9 22H2.8l7.5-8.6L2.4 2h6.6l4.5 6.7L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z"/></svg></a></li>
+          <li><a href="#" data-social="discord" aria-label="Join our Discord" class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]"><svg class="h-4 w-4 text-white/80" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.4c1.7.4 2.4 1 3.3 1.6a14 14 0 0 0-12.9 0C6.6 4.4 8 3.8 9.6 3.4L9.4 3a19.7 19.7 0 0 0-4.9 1.4C1.4 9 0.7 13.5 1 17.9A19.9 19.9 0 0 0 7 20.6l.9-1.5c-.7-.3-1.4-.6-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l.9 1.5a19.8 19.8 0 0 0 6-2.7c.4-5.1-.8-9.5-3.7-13.5ZM8.5 15.3c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Zm7 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Z"/></svg></a></li>
+          <li><a href="#" data-social="youtube" aria-label="Subscribe on YouTube" class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]"><svg class="h-4 w-4 text-white/80" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a></li>
+        </ul>
+      </div>
+
+      <!-- Scroll cue -->
+      <a href="#news" aria-label="Scroll to news"
+         class="absolute bottom-6 right-6 z-20 hidden h-12 w-12 animate-float place-items-center clip-corner border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] sm:grid">
+        <svg class="h-5 w-5 text-volt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </a>
+    </section>
+
+    <!-- ==============================================================
+         TICKER — infinite marquee, decorative
+         ============================================================== -->
+    <div class="relative overflow-hidden border-y border-white/10 bg-black/40 py-2.5 backdrop-blur-md" aria-hidden="true">
+      <div class="flex w-max animate-marquee gap-10 whitespace-nowrap">
+        <div class="flex gap-10 pr-10 font-display text-sm font-bold uppercase tracking-[0.3em] text-white/50">
+          <span class="text-neon">New Eridu</span><span>Version 2.6</span><span class="text-volt">Limited-Time Event</span>
+          <span>Agent Recruitment Open</span><span>Season 2.6.5</span><span class="text-neon">Hollow Run</span>
+          <span>W-Engine Refine</span><span class="text-volt">City Mall Event</span><span>Pre-Register Now</span>
+        </div>
+        <!-- duplicated purely to make the marquee loop seamlessly -->
+        <div class="flex gap-10 pr-10 font-display text-sm font-bold uppercase tracking-[0.3em] text-white/50">
+          <span class="text-neon">New Eridu</span><span>Version 2.6</span><span class="text-volt">Limited-Time Event</span>
+          <span>Agent Recruitment Open</span><span>Season 2.6.5</span><span class="text-neon">Hollow Run</span>
+          <span>W-Engine Refine</span><span class="text-volt">City Mall Event</span><span>Pre-Register Now</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================================================
+         NEWS & UPDATES — tabbed filter + card grid
+         ============================================================== -->
+    <section id="news" class="relative scroll-mt-24 overflow-hidden py-20 sm:py-28">
+      <div class="grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -right-32 top-1/4 h-80 w-80 rounded-full bg-volt/5 blur-[100px]" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <!-- Heading -->
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="eyebrow flex items-center gap-3 text-sm text-neon">
+              <span class="h-8 w-1 bg-neon" aria-hidden="true"></span>Transmission Feed
+            </p>
+            <h2 class="mt-3 font-display text-5xl font-extrabold uppercase italic leading-none sm:text-6xl lg:text-7xl">
+              News <span class="text-outline">&amp; Updates</span>
+            </h2>
+            <p class="mt-4 max-w-xl text-mist">
+              Official notices, patch notes and event drops from the Public Security branch.
+            </p>
+          </div>
+
+          <!-- Tabs (radiogroup: native arrow-key navigation for free) -->
+          <div role="tablist" aria-label="Filter news by category" id="news-tabs"
+               class="glass inline-flex flex-wrap gap-1 p-1.5 [clip-path:polygon(0_0,_100%_0,_96%_100%,_4%_100%)]">
+
+            <div class="contents">
+              <input type="radio" name="news-filter" id="tab-all" value="all" class="peer sr-only" checked>
+              <label for="tab-all" data-tab
+                     class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200
+                            peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            hover:text-white">
+                All
+              </label>
+            </div>
+
+            <div class="contents">
+              <input type="radio" name="news-filter" id="tab-news" value="news" class="peer sr-only">
+              <label for="tab-news" data-tab
+                     class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200
+                            peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            hover:text-white">
+                News
+              </label>
+            </div>
+
+            <div class="contents">
+              <input type="radio" name="news-filter" id="tab-notice" value="notice" class="peer sr-only">
+              <label for="tab-notice" data-tab
+                     class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200
+                            peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            hover:text-white">
+                Notice
+              </label>
+            </div>
+
+            <div class="contents">
+              <input type="radio" name="news-filter" id="tab-events" value="events" class="peer sr-only">
+              <label for="tab-events" data-tab
+                     class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200
+                            peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)]
+                            hover:text-white">
+                Events
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards: static markup so the content still exists without JS.
+             JS only toggles `hidden` based on data-category. -->
+        <ul id="news-grid" class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+          <li class="group" data-category="news">
+            <article class="glass clip-corner flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <div class="relative aspect-[16/10] overflow-hidden bg-ink-soft">
+                <img src="pictures/preview.png" alt="" width="1280" height="800" loading="lazy" decoding="async"
+                     class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                <span class="absolute left-0 top-4 bg-neon px-3 py-1 font-display text-xs font-bold uppercase italic tracking-widest text-white">News</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <time datetime="2026-09-28" class="eyebrow text-xs text-white/40">28 Sep 2026</time>
+                <h3 class="mt-2 font-display text-2xl font-bold uppercase leading-tight transition-colors duration-300 group-hover:text-neon">
+                  Version 2.6 “Midnight Signal” now live
+                </h3>
+                <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">
+                  A new chapter opens in Eridu's entertainment district. New Agents, new W-Engines
+                  and a limited-time signal event await.
+                </p>
+                <a href="#" data-news-open
+                   class="mt-5 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-white transition-colors hover:text-volt">
+                  Read more
+                  <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <li class="group" data-category="events">
+            <article class="glass clip-corner flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <div class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-neon/30 via-ink-soft to-volt/20">
+                <div class="grid-bg-sm absolute inset-0 opacity-70" aria-hidden="true"></div>
+                <span class="absolute bottom-3 right-3 font-display text-6xl font-extrabold italic text-white/10" aria-hidden="true">02</span>
+                <span class="absolute left-0 top-4 bg-volt px-3 py-1 font-display text-xs font-bold uppercase italic tracking-widest text-ink">Event</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <time datetime="2026-10-02" class="eyebrow text-xs text-white/40">02 Oct 2026</time>
+                <h3 class="mt-2 font-display text-2xl font-bold uppercase leading-tight transition-colors duration-300 group-hover:text-neon">
+                  Limited-time: City Mall Chaos Run
+                </h3>
+                <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">
+                  Clear escalating stages, chain combos and swap your Agents mid-fight for
+                  maximum score. Runs for 14 days.
+                </p>
+                <a href="#" data-news-open class="mt-5 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-white transition-colors hover:text-volt">
+                  Event details
+                  <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <li class="group" data-category="notice">
+            <article class="glass clip-corner flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <div class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-volt/25 via-ink-soft to-neon/25">
+                <div class="scanlines absolute inset-0 opacity-60" aria-hidden="true"></div>
+                <span class="absolute left-0 top-4 bg-white px-3 py-1 font-display text-xs font-bold uppercase italic tracking-widest text-ink">Notice</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <time datetime="2026-09-20" class="eyebrow text-xs text-white/40">20 Sep 2026</time>
+                <h3 class="mt-2 font-display text-2xl font-bold uppercase leading-tight transition-colors duration-300 group-hover:text-neon">
+                  Scheduled maintenance notice
+                </h3>
+                <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">
+                  Servers will be down for roughly 4 hours. Unused stamina will not be consumed.
+                </p>
+                <a href="#" data-news-open class="mt-5 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-white transition-colors hover:text-volt">
+                  Read more
+                  <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <li class="group" data-category="news">
+            <article class="glass clip-corner flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <div class="relative aspect-[16/10] overflow-hidden bg-ink-soft">
+                <img src="pictures/JaneDoe.png" alt="" width="720" height="960" loading="lazy" decoding="async"
+                     class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105">
+                <span class="absolute left-0 top-4 bg-neon px-3 py-1 font-display text-xs font-bold uppercase italic tracking-widest text-white">News</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <time datetime="2026-09-12" class="eyebrow text-xs text-white/40">12 Sep 2026</time>
+                <h3 class="mt-2 font-display text-2xl font-bold uppercase leading-tight transition-colors duration-300 group-hover:text-neon">
+                  Agent File: The Anomaly returns
+                </h3>
+                <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">
+                  Jane Doe's hidden past resurfaces. New side quests trace her steps through
+                  Old Town's forgotten alleys.
+                </p>
+                <a href="#" data-news-open class="mt-5 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-white transition-colors hover:text-volt">
+                  Read more
+                  <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <li class="group" data-category="events">
+            <article class="glass clip-corner flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <div class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-neon/30 via-ink-soft to-volt/20">
+                <div class="grid-bg-sm absolute inset-0 opacity-70" aria-hidden="true"></div>
+                <span class="absolute bottom-3 right-3 font-display text-6xl font-extrabold italic text-white/10" aria-hidden="true">03</span>
+                <span class="absolute left-0 top-4 bg-volt px-3 py-1 font-display text-xs font-bold uppercase italic tracking-widest text-ink">Event</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <time datetime="2026-10-08" class="eyebrow text-xs text-white/40">08 Oct 2026</time>
+                <h3 class="mt-2 font-display text-2xl font-bold uppercase leading-tight transition-colors duration-300 group-hover:text-neon">
+                  Sign-in event: 7 days of rewards
+                </h3>
+                <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">
+                  Log in each day to collect Polychromes, W-Engine pulls and a featured Agent.
+                </p>
+                <a href="#" data-news-open class="mt-5 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-white transition-colors hover:text-volt">
+                  Event details
+                  <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <li class="group" data-category="notice">
+            <article class="glass clip-corner flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+              <div class="relative aspect-[16/10] overflow-hidden bg-ink-soft">
+                <img src="pictures/zzz_icon.webp" alt="" width="512" height="512" loading="lazy" decoding="async"
+                     class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                <span class="absolute left-0 top-4 bg-white px-3 py-1 font-display text-xs font-bold uppercase italic tracking-widest text-ink">Notice</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <time datetime="2026-09-05" class="eyebrow text-xs text-white/40">05 Sep 2026</time>
+                <h3 class="mt-2 font-display text-2xl font-bold uppercase leading-tight transition-colors duration-300 group-hover:text-neon">
+                  Bug fix hotfix &amp; security patch
+                </h3>
+                <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">
+                  Fixes several reported crashes in Hollow runs and improves controller pairing.
+                </p>
+                <a href="#" data-news-open class="mt-5 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-white transition-colors hover:text-volt">
+                  Read more
+                  <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+        </ul>
+
+        <!-- Empty state (only reachable via filter with 0 matches) -->
+        <p id="news-empty" class="mt-12 hidden text-center font-display text-xl uppercase tracking-widest text-mist">
+          No transmissions in this channel.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==============================================================
+         AGENT SHOWCASE — interactive roster, faction filters
+         Accent colour is driven by the --accent CSS variable (set in JS)
+         ============================================================== -->
+    <section id="agents" class="relative scroll-mt-24 overflow-hidden border-y border-white/10 bg-ink-soft py-20 sm:py-28">
+
+      <div class="pointer-events-none absolute left-1/2 top-0 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden="true"></div>
+
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="eyebrow flex items-center gap-3 text-sm text-neon">
+              <span class="h-8 w-1 bg-neon" aria-hidden="true"></span>Roster Dossier
+            </p>
+            <h2 class="mt-3 font-display text-5xl font-extrabold uppercase italic leading-none sm:text-6xl lg:text-7xl">
+              Meet the <span class="text-neon" style="color: var(--accent, #ff5500)">Agents</span>
+            </h2>
+            <p class="mt-4 max-w-xl text-mist">
+              Pick a faction, then a name. Their file, combat profile and motto load instantly.
+            </p>
+          </div>
+
+          <!-- Faction filter (radiogroup, keyboard arrow navigation) -->
+          <fieldset id="faction-filter" class="glass inline-flex flex-wrap gap-1 p-1.5 [clip-path:polygon(0_0,_100%_0,_96%_100%,_4%_100%)]">
+            <legend class="sr-only">Filter agents by faction</legend>
+
+            <div class="contents">
+              <input type="radio" name="faction" id="fac-all" value="all" class="peer sr-only" checked>
+              <label for="fac-all" class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200 peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)] data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)] hover:text-white">All</label>
+            </div>
+
+            <div class="contents">
+              <input type="radio" name="faction" id="fac-hound" value="cunning-hound" class="peer sr-only">
+              <label for="fac-hound" class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200 peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)] data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)] hover:text-white">Cunning Hound</label>
+            </div>
+
+            <div class="contents">
+              <input type="radio" name="faction" id="fac-vh" value="victoria" class="peer sr-only">
+              <label for="fac-vh" class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200 peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)] data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)] hover:text-white">Victoria H.</label>
+            </div>
+
+            <div class="contents">
+              <input type="radio" name="faction" id="fac-soc" value="sons-of-calydon" class="peer sr-only">
+              <label for="fac-soc" class="cursor-pointer px-4 py-2 font-display text-sm font-bold uppercase tracking-widest text-white/60 transition-all duration-200 peer-checked:bg-neon peer-checked:text-white peer-checked:shadow-[0_0_20px_rgba(255,85,0,0.6)] data-[active=true]:bg-neon data-[active=true]:text-white data-[active=true]:shadow-[0_0_20px_rgba(255,85,0,0.6)] hover:text-white">Sons of Calydon</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Layout: roster rail (left) + active Agent file (right) -->
+        <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
+
+          <!-- Roster selector -->
+          <div class="lg:col-span-5">
+            <!-- One column on phones so agent names are never truncated -->
+            <ul id="agent-roster" class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2"
+                role="listbox" aria-label="Agent roster" aria-orientation="vertical">
+
+              <!-- Buttons are injected/updated by js/landing.js from the AGENTS table -->
+              <li data-faction="cunning-hound">
+                <button type="button" role="option" data-agent="jane" style="--agent-c: #ff5500" data-selected="true" aria-selected="true"
+                        class="group relative w-full overflow-hidden clip-corner border border-white/10 bg-glass/60 p-3 text-left transition-all duration-300
+                               group-hover:agent-accent-glow data-[selected=true]:agent-accent-glow">
+                  <span class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(120% 80% at 50% 0%, rgb(from var(--agent-c) r g b / 0.28), transparent 70%);" aria-hidden="true"></span>
+                  <span class="relative flex items-center gap-3">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center clip-corner bg-ink font-display text-lg font-extrabold italic text-white/70" data-monogram>JD</span>
+                    <span class="min-w-0">
+                      <span class="block truncate font-display text-lg font-bold uppercase leading-none transition-colors duration-300 group-hover:agent-accent-text" data-name>Jane Doe</span>
+                      <span class="mt-1 block truncate text-[11px] uppercase tracking-wider text-mist" data-role>Anomaly · Duel</span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+
+              <li data-faction="cunning-hound">
+                <button type="button" role="option" data-agent="anby" style="--agent-c: #ff5500" data-selected="false" aria-selected="false"
+                        class="group relative w-full overflow-hidden clip-corner border border-white/10 bg-glass/60 p-3 text-left transition-all duration-300
+                               group-hover:agent-accent-glow data-[selected=true]:agent-accent-glow">
+                  <span class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(120% 80% at 50% 0%, rgb(from var(--agent-c) r g b / 0.28), transparent 70%);" aria-hidden="true"></span>
+                  <span class="relative flex items-center gap-3">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center clip-corner bg-ink font-display text-lg font-extrabold italic text-white/70" data-monogram>AD</span>
+                    <span class="min-w-0">
+                      <span class="block truncate font-display text-lg font-bold uppercase leading-none transition-colors duration-300 group-hover:agent-accent-text" data-name>Anby Demara</span>
+                      <span class="mt-1 block truncate text-[11px] uppercase tracking-wider text-mist" data-role>Stun · Anomaly</span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+
+              <li data-faction="victoria">
+                <button type="button" role="option" data-agent="corin" style="--agent-c: #4ea8ff" data-selected="false" aria-selected="false"
+                        class="group relative w-full overflow-hidden clip-corner border border-white/10 bg-glass/60 p-3 text-left transition-all duration-300
+                               group-hover:agent-accent-glow data-[selected=true]:agent-accent-glow">
+                  <span class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(120% 80% at 50% 0%, rgb(from var(--agent-c) r g b / 0.28), transparent 70%);" aria-hidden="true"></span>
+                  <span class="relative flex items-center gap-3">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center clip-corner bg-ink font-display text-lg font-extrabold italic text-white/70" data-monogram>CW</span>
+                    <span class="min-w-0">
+                      <span class="block truncate font-display text-lg font-bold uppercase leading-none transition-colors duration-300 group-hover:agent-accent-text" data-name>Corin Wickes</span>
+                      <span class="mt-1 block truncate text-[11px] uppercase tracking-wider text-mist" data-role>Physical · Anomaly</span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+
+              <li data-faction="victoria">
+                <button type="button" role="option" data-agent="grace" style="--agent-c: #4ea8ff" data-selected="false" aria-selected="false"
+                        class="group relative w-full overflow-hidden clip-corner border border-white/10 bg-glass/60 p-3 text-left transition-all duration-300
+                               group-hover:agent-accent-glow data-[selected=true]:agent-accent-glow">
+                  <span class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(120% 80% at 50% 0%, rgb(from var(--agent-c) r g b / 0.28), transparent 70%);" aria-hidden="true"></span>
+                  <span class="relative flex items-center gap-3">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center clip-corner bg-ink font-display text-lg font-extrabold italic text-white/70" data-monogram>GH</span>
+                    <span class="min-w-0">
+                      <span class="block truncate font-display text-lg font-bold uppercase leading-none transition-colors duration-300 group-hover:agent-accent-text" data-name>Grace Howard</span>
+                      <span class="mt-1 block truncate text-[11px] uppercase tracking-wider text-mist" data-role>Drive · Rupture</span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+
+              <li data-faction="sons-of-calydon">
+                <button type="button" role="option" data-agent="burnice" style="--agent-c: #ffe600" data-selected="false" aria-selected="false"
+                        class="group relative w-full overflow-hidden clip-corner border border-white/10 bg-glass/60 p-3 text-left transition-all duration-300
+                               group-hover:agent-accent-glow data-[selected=true]:agent-accent-glow">
+                  <span class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(120% 80% at 50% 0%, rgb(from var(--agent-c) r g b / 0.28), transparent 70%);" aria-hidden="true"></span>
+                  <span class="relative flex items-center gap-3">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center clip-corner bg-ink font-display text-lg font-extrabold italic text-white/70" data-monogram>BW</span>
+                    <span class="min-w-0">
+                      <span class="block truncate font-display text-lg font-bold uppercase leading-none transition-colors duration-300 group-hover:agent-accent-text" data-name>Burnice White</span>
+                      <span class="mt-1 block truncate text-[11px] uppercase tracking-wider text-mist" data-role>Fire · Burn</span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+
+              <li data-faction="sons-of-calydon">
+                <button type="button" role="option" data-agent="caesar" style="--agent-c: #ffe600" data-selected="false" aria-selected="false"
+                        class="group relative w-full overflow-hidden clip-corner border border-white/10 bg-glass/60 p-3 text-left transition-all duration-300
+                               group-hover:agent-accent-glow data-[selected=true]:agent-accent-glow">
+                  <span class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(120% 80% at 50% 0%, rgb(from var(--agent-c) r g b / 0.28), transparent 70%);" aria-hidden="true"></span>
+                  <span class="relative flex items-center gap-3">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center clip-corner bg-ink font-display text-lg font-extrabold italic text-white/70" data-monogram>CK</span>
+                    <span class="min-w-0">
+                      <span class="block truncate font-display text-lg font-bold uppercase leading-none transition-colors duration-300 group-hover:agent-accent-text" data-name>Caesar King</span>
+                      <span class="mt-1 block truncate text-[11px] uppercase tracking-wider text-mist" data-role>Defense · Drive</span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Active Agent file -->
+          <div class="lg:col-span-7">
+            <article class="glass clip-corner relative overflow-hidden p-6 shadow-2xl sm:p-8"
+                     data-agent-file style="--accent: #ff5500">
+
+              <!-- Accent wash that recolours with the selected Agent -->
+              <div class="pointer-events-none absolute inset-0 transition-opacity duration-500"
+                   style="background: radial-gradient(90% 60% at 80% 0%, rgb(from var(--accent) r g b / 0.16), transparent 65%);" aria-hidden="true"></div>
+
+              <div class="relative grid grid-cols-1 gap-6 sm:grid-cols-5">
+
+                <!-- Portrait -->
+                <div class="sm:col-span-2">
+                  <div class="relative aspect-[3/4] w-full overflow-hidden clip-corner border border-white/10 bg-ink" data-portrait-frame>
+                    <!-- Real art when the Agent has one; otherwise a hologram panel -->
+                    <img data-portrait-img src="pictures/JaneDoe.png" alt="Jane Doe"
+                         width="720" height="960" loading="lazy" decoding="async"
+                         class="h-full w-full object-cover object-top">
+                    <div data-portrait-fallback hidden
+                         class="absolute inset-0 grid place-items-center bg-gradient-to-b from-ink-soft to-ink">
+                      <span class="scanlines absolute inset-0 opacity-70" aria-hidden="true"></span>
+                      <span class="relative text-center">
+                        <span class="block font-display text-6xl font-extrabold italic text-white/15" data-holo-mono aria-hidden="true">JD</span>
+                        <span class="mt-2 block font-display text-[11px] uppercase tracking-[0.3em] text-mist">Signal locked</span>
+                      </span>
+                    </div>
+                    <span class="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-ink to-transparent" aria-hidden="true"></span>
+                  </div>
+
+                  <p class="mt-3 text-center font-display text-xs uppercase tracking-[0.3em] text-mist">
+                    File <span data-agent-code>#JD-001</span>
+                  </p>
+                </div>
+
+                <!-- Data -->
+                <div class="sm:col-span-3">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="bg-neon px-2.5 py-1 font-display text-[11px] font-bold uppercase italic tracking-widest text-white" data-faction-badge>Cunning Hound</span>
+                    <span class="border border-white/15 px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-widest text-mist" data-attribute>Physical</span>
+                  </div>
+
+                  <h3 class="mt-3 font-display text-4xl font-extrabold uppercase italic leading-none sm:text-5xl" data-agent-name>
+                    Jane Doe
+                  </h3>
+                  <p class="mt-1 font-display text-lg uppercase italic tracking-widest text-mist" data-agent-title>
+                    The Anomaly
+                  </p>
+
+                  <blockquote class="mt-4 border-l-2 border-neon pl-4 text-sm italic leading-relaxed text-white/80">
+                    <p data-agent-quote>“Every city has a shadow. Mine learned to fight back.”</p>
+                  </blockquote>
+
+                  <!-- Stat bars -->
+                  <dl class="mt-6 space-y-3" data-stat-list>
+                    <div>
+                      <dt class="flex items-center justify-between font-display text-xs uppercase tracking-[0.2em] text-mist">
+                        <span>Impact</span><span class="text-white" data-stat-value>92</span>
+                      </dt>
+                      <dd class="stat-bar mt-1.5 h-1.5 w-full overflow-hidden" data-stat-bar data-value="92">
+                        <span class="block h-full w-[92%]"></span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt class="flex items-center justify-between font-display text-xs uppercase tracking-[0.2em] text-mist">
+                        <span>Technique</span><span class="text-white" data-stat-value>88</span>
+                      </dt>
+                      <dd class="stat-bar mt-1.5 h-1.5 w-full overflow-hidden" data-stat-bar data-value="88">
+                        <span class="block h-full w-[88%]"></span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt class="flex items-center justify-between font-display text-xs uppercase tracking-[0.2em] text-mist">
+                        <span>Speed</span><span class="text-white" data-stat-value>74</span>
+                      </dt>
+                      <dd class="stat-bar mt-1.5 h-1.5 w-full overflow-hidden" data-stat-bar data-value="74">
+                        <span class="block h-full w-[74%]"></span>
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <a href="#" data-agent-open
+                     class="btn-skew group mt-7 inline-flex bg-neon transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+                    <span class="sheen-layer group-hover:animate-sheen" aria-hidden="true"></span>
+                    <span class="clip-notch-r relative items-center gap-2 px-6 py-3 font-display text-base font-extrabold uppercase italic tracking-widest">
+                      View Full File
+                      <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================================
+         MEDIA — teaser band, opens the same trailer dialog
+         ============================================================== -->
+    <section id="media" class="scroll-mt-24 py-20 sm:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="glass clip-corner relative overflow-hidden p-6 shadow-2xl sm:p-10">
+          <div class="grid-bg pointer-events-none absolute inset-0 opacity-50" aria-hidden="true"></div>
+          <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1 hazard opacity-70" aria-hidden="true"></div>
+
+          <div class="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+            <div>
+              <p class="eyebrow flex items-center gap-3 text-sm text-volt">
+                <span class="h-8 w-1 bg-volt" aria-hidden="true"></span>Official Media
+              </p>
+              <h2 class="mt-3 font-display text-4xl font-extrabold uppercase italic leading-none sm:text-5xl">
+                Watch the <span class="text-neon">Midnight Signal</span> trailer
+              </h2>
+              <p class="mt-4 max-w-lg text-mist">
+                Two minutes of Hollow diving, chain attacks and the city that refuses to stand still.
+                Streams directly in-page — no reload, no new tab.
+              </p>
+            </div>
+
+            <div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
+              <button type="button" data-trailer-open data-trailer-label="Midnight Signal — Gameplay Trailer"
+                      class="btn-skew group relative bg-neon transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+                <span class="sheen-layer group-hover:animate-sheen" aria-hidden="true"></span>
+                <span class="clip-notch-r relative items-center gap-3 px-7 py-3.5 font-display text-lg font-extrabold uppercase italic tracking-widest">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
+                  Play Trailer
+                </span>
+              </button>
+
+              <button type="button" data-trailer-open data-trailer-src="videos/Background_Page1_shorts.webm"
+                      data-trailer-label="Jane Doe — Character Teaser"
+                      class="btn-skew group relative bg-black/50 backdrop-blur-md transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+                <span class="clip-notch-r items-center gap-3 border border-white/10 px-7 py-3.5 font-display text-lg font-extrabold uppercase italic tracking-widest">
+                  Character Teaser
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================================
+         PRE-REGISTER — the "Play Now" / CTA anchor target
+         ============================================================== -->
+    <section id="pre-register" class="relative scroll-mt-24 overflow-hidden py-20 sm:py-28">
+      <div class="grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-neon/15 blur-[130px]" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <h2 class="font-display text-5xl font-extrabold uppercase italic leading-[0.9] sm:text-7xl">
+          New Eridu is <span class="text-neon drop-shadow-[0_0_28px_rgba(255,85,0,0.55)]">waiting</span>
+        </h2>
+        <p class="mx-auto mt-5 max-w-xl text-mist">
+          Pre-register to secure your Agent slot and unlock the launch-day W-Engine.
+        </p>
+
+        <form class="mx-auto mt-9 flex max-w-xl flex-col gap-3 sm:flex-row" data-preregister novalidate>
+          <label for="email" class="sr-only">Email address</label>
+          <input id="email" name="email" type="email" required autocomplete="email" inputmode="email"
+                 placeholder="your@email.com"
+                 class="clip-corner w-full border border-white/10 bg-black/50 px-5 py-3.5 text-white placeholder:text-mist/60 backdrop-blur-md transition-all duration-300 focus:border-[#ff5500] focus:shadow-[0_0_20px_rgba(255,85,0,0.6)] focus:outline-none">
+          <button type="submit"
+                  class="btn-skew shrink-0 bg-neon transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+            <span class="clip-notch-r items-center justify-center px-8 py-3.5 font-display text-lg font-extrabold uppercase italic tracking-widest">
+              Pre-Register
+            </span>
+          </button>
+        </form>
+        <p class="mt-3 text-xs text-mist/70" data-preregister-hint>Fan-made demo — no data is transmitted.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==============================================================
+       FOOTER
+       ============================================================== -->
+  <footer class="relative border-t border-white/10 bg-black/50 backdrop-blur-md">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+
+      <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3">
+            <img src="pictures/studio_logo.png" alt="EZ Studio" width="90" height="28" class="h-6 w-auto opacity-80">
+            <span class="h-7 w-px bg-white/15" aria-hidden="true"></span>
+            <img src="pictures/zzz_gamelogo.png" alt="Zenless Zone Zero" width="120" height="32" class="h-7 w-auto">
+          </div>
+          <p class="mt-5 max-w-md text-sm leading-relaxed text-mist">
+            An unofficial, fan-made tribute page built for portfolio and educational purposes.
+            Not affiliated with, sponsored or endorsed by HoYoverse.
+          </p>
+
+          <!-- Age ratings -->
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <div role="img" aria-label="Age rating: Teen. Content descriptors: violence, suggestive themes, mild blood, mild language. In-game purchases including random items."
+                 class="clip-corner-sm border border-white/15 bg-black/40 px-3 py-2">
+              <div class="flex items-center gap-2">
+                <span class="font-display text-xl font-extrabold italic leading-none">T</span>
+                <span class="font-display text-xs uppercase leading-none tracking-widest text-mist">Teen</span>
+              </div>
+              <p class="mt-1 text-[10px] leading-tight text-mist/70">In-game purchases (incl. random items)</p>
+            </div>
+            <div role="img" aria-label="Content rating information" class="clip-corner-sm border border-white/15 bg-black/40 px-3 py-2">
+              <div class="flex items-center gap-2">
+                <span class="font-display text-xl font-extrabold italic leading-none">12</span>
+                <span class="font-display text-xs uppercase leading-none tracking-widest text-mist">PEGI</span>
+              </div>
+              <p class="mt-1 text-[10px] leading-tight text-mist/70">Violence, mild language</p>
+            </div>
+            <span class="clip-corner-sm border border-white/15 bg-black/40 px-3 py-2 font-display text-xs uppercase tracking-widest text-mist">16+</span>
+          </div>
+        </div>
+
+        <nav aria-labelledby="footer-game">
+          <h2 id="footer-game" class="eyebrow text-xs text-white/40">Game</h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#news"   class="text-mist transition-colors hover:text-neon">News</a></li>
+            <li><a href="#agents" class="text-mist transition-colors hover:text-neon">Agents</a></li>
+            <li><a href="#media"  class="text-mist transition-colors hover:text-neon">Media</a></li>
+            <li><a href="#pre-register" class="text-mist transition-colors hover:text-neon">Pre-Register</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-legal">
+          <h2 id="footer-legal" class="eyebrow text-xs text-white/40">Legal</h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#" data-placeholder class="text-mist transition-colors hover:text-neon">Terms of Service</a></li>
+            <li><a href="#" data-placeholder class="text-mist transition-colors hover:text-neon">Privacy Policy</a></li>
+            <li><a href="#" data-placeholder class="text-mist transition-colors hover:text-neon">Community Guidelines</a></li>
+            <li><a href="#" data-placeholder class="text-mist transition-colors hover:text-neon">Copyright Notice</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Social icons -->
+      <ul class="mt-12 flex items-center gap-3" aria-label="Social media">
+        <li><a href="#" data-social="x" aria-label="X" class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]"><svg class="h-4 w-4 text-white/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7 8 8.2 12h-6.4l-5-7.3L5.9 22H2.8l7.5-8.6L2.4 2h6.6l4.5 6.7L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z"/></svg></a></li>
+        <li><a href="#" data-social="discord" aria-label="Discord" class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]"><svg class="h-5 w-5 text-white/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.4c1.7.4 2.4 1 3.3 1.6a14 14 0 0 0-12.9 0C6.6 4.4 8 3.8 9.6 3.4L9.4 3a19.7 19.7 0 0 0-4.9 1.4C1.4 9 0.7 13.5 1 17.9A19.9 19.9 0 0 0 7 20.6l.9-1.5c-.7-.3-1.4-.6-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l.9 1.5a19.8 19.8 0 0 0 6-2.7c.4-5.1-.8-9.5-3.7-13.5ZM8.5 15.3c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Zm7 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Z"/></svg></a></li>
+        <li><a href="#" data-social="youtube" aria-label="YouTube" class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]"><svg class="h-5 w-5 text-white/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a></li>
+        <li><a href="#" data-social="tiktok" aria-label="TikTok" class="grid h-10 w-10 place-items-center clip-corner-sm border border-white/10 transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]"><svg class="h-4 w-4 text-white/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.1v13.2a2.5 2.5 0 1 1-2.5-2.5c.3 0 .5 0 .8.1V9.6a5.7 5.7 0 1 0 4.8 5.6V8.9a6.5 6.5 0 0 0 3.8 1.2V7a3.8 3.8 0 0 1-3.8-5Z"/></svg></a></li>
+      </ul>
+
+      <div class="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-mist/70 sm:flex-row sm:items-center sm:justify-between">
+        <p>&copy; <span data-year>2026</span> EZ Studio — fan project. All game content &amp; trademarks &copy; HoYoverse.</p>
+        <p>Built with Tailwind CSS v4 &amp; Vanilla JS.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==============================================================
+       TRAILER MODAL — native <dialog>, backdrop blur from CSS.
+       The <video> src is only attached when the dialog opens.
+       ============================================================== -->
+  <dialog id="trailer-dialog" aria-labelledby="trailer-title"
+          class="w-[min(94vw,1100px)] bg-transparent backdrop:bg-black/75 backdrop:backdrop-blur-md">
+    <div class="clip-corner relative overflow-hidden border border-white/10 bg-glass/95 shadow-2xl">
+      <div class="grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden="true"></div>
+      <div class="absolute inset-x-0 bottom-0 h-1 hazard" aria-hidden="true"></div>
+
+      <div class="relative flex items-center justify-between gap-4 border-b border-white/10 px-5 py-4">
+        <h2 id="trailer-title" class="font-display text-lg font-extrabold uppercase italic tracking-widest sm:text-xl" data-trailer-title>
+          Midnight Signal — Gameplay Trailer
+        </h2>
+        <button type="button" data-trailer-close aria-label="Close trailer"
+                class="grid h-9 w-9 shrink-0 place-items-center clip-corner-sm border border-white/10 transition-all duration-300 hover:border-[#ff5500] hover:shadow-[0_0_20px_rgba(255,85,0,0.6)]">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <div class="relative bg-black">
+        <video data-trailer-video class="aspect-video w-full" controls playsinline preload="none"
+               poster="pictures/hero-poster.webp"></video>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toast for links that have no destination yet -->
+  <div id="toast" role="status" aria-live="polite"
+       class="pointer-events-none fixed bottom-6 left-1/2 z-[70] -translate-x-1/2 translate-y-4 opacity-0 transition-all duration-300 clip-corner border border-white/10 bg-black/80 px-5 py-3 font-display text-sm uppercase tracking-widest text-white backdrop-blur-md"></div>
+
+  <script src="js/landing.js" defer></script>
+</body>
+</html>

@@ -7,10 +7,11 @@
        - tablet & desktop   -> Background_Page1.webm
        Jadi HP tidak ikut mengunduh video desktop yang besar. -->
   <div class="page__bg-wrapper" aria-hidden="true">
-    <video class="bg-video" muted playsinline autoplay preload="metadata"
-           data-src-desktop="videos/Background_Page1.webm"
-           data-src-mobile="videos/Background_Page1_shorts.webm"
-           data-start-desktop="4.5"></video>
+    <video class="bg-video" autoplay loop muted playsinline preload="metadata"
+      data-src-desktop="videos/Background_Page1.webm"
+      data-src-mobile="videos/Background_Page1_shorts.webm"
+      data-start-desktop="4.5">
+    </video>
     <div class="bg-overlay"></div>
   </div>
 
@@ -146,7 +147,7 @@
   <nav class="side-nav" aria-label="Pages">
     <button class="side-dot is-active" type="button" data-action="goto" data-page="page1" aria-label="Page 1" aria-current="page"></button>
     <button class="side-dot" type="button" data-action="goto" data-page="page2" aria-label="Page 2"></button>
-    <button class="side-dot" type="button" disabled aria-label="Page 3 (not available yet)"></button>
+    <button class="side-dot" type="button" data-action="goto" data-page="page3" aria-label="Page 3"></button>
     <button class="side-dot" type="button" disabled aria-label="Page 4 (not available yet)"></button>
     <button class="side-dot" type="button" disabled aria-label="Page 5 (not available yet)"></button>
   </nav>

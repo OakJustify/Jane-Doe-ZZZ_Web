@@ -1,0 +1,132 @@
+<!-- HALAMAN 3 : MEDIA GALLERY
+     Galeri screenshot + video + fan kit.
+     Semua item markup-driven: tambah kartu baru = tambah <figure>/<button>
+     dengan atribut data-lightbox / data-video-src, JS otomatis menanganinya. -->
+<div id="page-3" class="page" data-page="page3">
+
+  <!-- 1. BACKGROUND (gradasi, CSS murni) -->
+  <div class="page__bg-wrapper page3__bg" aria-hidden="true"></div>
+
+  <!-- 2. KONTEN -->
+  <div class="page__content">
+
+    <!-- HEADER -->
+    <header class="zzz-header">
+      <div class="header__logos">
+        <img class="logo-studio" src="pictures/studio_logo.png" alt="EZ Studio">
+        <div class="logo-divider" aria-hidden="true"></div>
+        <img class="logo-zzz" src="pictures/zzz_gamelogo.png" alt="Zenless Zone Zero">
+      </div>
+
+      <nav class="header__nav" aria-label="Site tools">
+        <button class="nav-btn" type="button" data-action="soon" data-msg="News feed is coming soon" aria-label="News">
+          <img src="pictures/signal.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="share" aria-label="Share this page">
+          <img src="pictures/share.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="goto" data-page="page1" aria-label="Home">
+          <img src="pictures/home.png" alt="">
+        </button>
+      </nav>
+    </header>
+
+    <!-- ISI UTAMA -->
+    <main class="media">
+      <p class="media__kicker">Zenless Zone Zero — Their Secret Histories</p>
+      <h2 class="media__title">Media Gallery</h2>
+
+      <!-- SCREENSHOTS : klik kartu = buka lightbox -->
+      <section class="media__section" aria-labelledby="media-shots">
+        <h3 class="media__heading" id="media-shots">Screenshots</h3>
+        <ul class="media__grid">
+          <li>
+            <button class="shot-card" type="button" data-lightbox data-full="pictures/preview.png" data-caption="Landing page — desktop preview">
+              <img src="pictures/preview.png" alt="Landing page desktop preview" loading="lazy">
+              <span class="shot-card__cap">Landing preview</span>
+            </button>
+          </li>
+          <li>
+            <button class="shot-card" type="button" data-lightbox data-full="pictures/JaneDoe.png" data-caption="Jane Doe — agent portrait (fan art)">
+              <img src="pictures/JaneDoe.png" alt="Jane Doe agent portrait" loading="lazy">
+              <span class="shot-card__cap">Agent portrait</span>
+            </button>
+          </li>
+          <li>
+            <button class="shot-card" type="button" data-lightbox data-full="pictures/zzz_icon.webp" data-caption="Game icon">
+              <img src="pictures/zzz_icon.webp" alt="Zenless Zone Zero icon" loading="lazy">
+              <span class="shot-card__cap">Game icon</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- VIDEOS : klik kartu = buka dialog video. Video TIDAK dimuat
+           sampai kartunya diklik (preload="none"). -->
+      <section class="media__section" aria-labelledby="media-videos">
+        <h3 class="media__heading" id="media-videos">Videos</h3>
+        <ul class="media__grid media__grid--videos">
+          <li>
+            <button class="video-card" type="button" data-video-src="videos/Background_Page1.webm" data-caption="Key visual loop — widescreen">
+              <img src="pictures/preview.png" alt="" aria-hidden="true">
+              <span class="video-card__play" aria-hidden="true"></span>
+              <span class="video-card__cap">Key visual — widescreen</span>
+            </button>
+          </li>
+          <li>
+            <button class="video-card" type="button" data-video-src="videos/Background_Page1_shorts.webm" data-caption="Key visual loop — portrait (mobile)">
+              <span class="video-card__poster" aria-hidden="true">9:16</span>
+              <span class="video-card__play" aria-hidden="true"></span>
+              <span class="video-card__cap">Key visual — portrait</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- FAN KIT : contoh pola tombol "coming soon" untuk template -->
+      <section class="media__section" aria-labelledby="media-fankit">
+        <h3 class="media__heading" id="media-fankit">Fan Kit</h3>
+        <ul class="fankit">
+          <li><button class="fankit__btn" type="button" data-action="soon" data-msg="Press kit is coming soon">Press Kit</button></li>
+          <li><button class="fankit__btn" type="button" data-action="soon" data-msg="Wallpapers are coming soon">Wallpapers</button></li>
+          <li><button class="fankit__btn" type="button" data-action="soon" data-msg="Icon pack is coming soon">Icons</button></li>
+          <li><button class="fankit__btn" type="button" data-action="soon" data-msg="Font files are coming soon">Fonts</button></li>
+        </ul>
+      </section>
+
+      <p class="media__note">Fan-made site. Not affiliated with or endorsed by HoYoverse. All shown assets belong to their respective owners.</p>
+    </main>
+
+    <!-- Kembali ke halaman 1 (loop) -->
+    <button class="scroll-hint" type="button" data-action="goto" data-page="page1" aria-label="Back to first page">
+      <span class="scroll-hint__chevrons" aria-hidden="true"></span>
+    </button>
+
+  </div>
+
+  <!-- LIGHTBOX (gambar) -->
+  <dialog class="lightbox" aria-label="Image viewer">
+    <button class="lightbox__close" type="button" data-lightbox-close aria-label="Close image viewer">Close</button>
+    <figure class="lightbox__figure">
+      <img src="" alt="" data-lightbox-img>
+      <figcaption data-lightbox-cap></figcaption>
+    </figure>
+  </dialog>
+
+  <!-- VIDEO DIALOG -->
+  <dialog class="media-player" aria-label="Video player">
+    <button class="media-player__close" type="button" data-video-close aria-label="Close video">Close</button>
+    <video class="media-player__video" controls playsinline preload="none" data-video-el></video>
+    <p class="media-player__cap" data-video-cap></p>
+  </dialog>
+
+  <!-- DOT NAVIGASI SAMPING -->
+  <nav class="side-nav" aria-label="Pages">
+    <button class="side-dot" type="button" data-action="goto" data-page="page1" aria-label="Page 1"></button>
+    <button class="side-dot" type="button" data-action="goto" data-page="page2" aria-label="Page 2"></button>
+    <button class="side-dot is-active" type="button" data-action="goto" data-page="page3" aria-label="Page 3" aria-current="page"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 4 (not available yet)"></button>
+    <button class="side-dot" type="button" disabled aria-label="Page 5 (not available yet)"></button>
+  </nav>
+
+</div>

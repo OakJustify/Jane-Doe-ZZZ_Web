@@ -1,19 +1,125 @@
-<!-- HALAMAN 2 : DUMMY (isi menyusul) -->
+<!-- HALAMAN 2 : AGENT FILE (profil karakter)
+     Konsep: "dossier" milik Criminal Investigation Special Response Team.
+     Foto karakter sengaja tampil seperti foto arsip (bingkai putih),
+     jadi asset PNG dengan background putih pun tetap terlihat natural. -->
 <div id="page-2" class="page" data-page="page2">
 
-  <div class="page__content">
-    <div class="page2-container">
-      <p class="page2-title">Page 2</p>
-      <p class="page2-text">Dummy page. Content coming soon.</p>
-      <button class="page2-back" type="button" data-action="goto" data-page="page1">Back to page 1</button>
-    </div>
+  <!-- 1. BACKGROUND: gradasi + watermark teks raksasa (CSS murni, tanpa gambar) -->
+  <div class="page__bg-wrapper page2__bg" aria-hidden="true">
+    <p class="page2__watermark">Jane<br>Doe</p>
   </div>
 
-  <!-- Dot navigasi samping (markup sama dengan page 1, dot aktif = halaman ini) -->
+  <!-- 2. KONTEN -->
+  <div class="page__content">
+
+    <!-- HEADER (markup sama seperti page 1, nav disesuaikan) -->
+    <header class="zzz-header">
+      <div class="header__logos">
+        <img class="logo-studio" src="pictures/studio_logo.png" alt="EZ Studio">
+        <div class="logo-divider" aria-hidden="true"></div>
+        <img class="logo-zzz" src="pictures/zzz_gamelogo.png" alt="Zenless Zone Zero">
+      </div>
+
+      <nav class="header__nav" aria-label="Site tools">
+        <button class="nav-btn" type="button" data-action="soon" data-msg="News feed is coming soon" aria-label="News">
+          <img src="pictures/signal.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="share" aria-label="Share this page">
+          <img src="pictures/share.png" alt="">
+        </button>
+        <button class="nav-btn" type="button" data-action="goto" data-page="page1" aria-label="Home">
+          <img src="pictures/home.png" alt="">
+        </button>
+      </nav>
+    </header>
+
+    <!-- ISI UTAMA -->
+    <main class="agent">
+
+      <!-- KOLOM KIRI : foto arsip -->
+      <figure class="agent__visual">
+        <div class="case-photo" data-tilt>
+          <span class="case-photo__clip" aria-hidden="true"></span>
+          <img src="pictures/JaneDoe.png" alt="Jane Doe portrait" width="563" height="724">
+          <figcaption class="case-photo__label">N.E.P.S. — Case Photo No. 034</figcaption>
+        </div>
+        <div class="case-photo__rank" aria-label="Rank S">S</div>
+      </figure>
+
+      <!-- KOLOM KANAN : data agen -->
+      <section class="agent__info" aria-labelledby="agent-name">
+
+        <p class="agent__kicker">Agent File — Criminal Investigation S.R.T.</p>
+
+        <h2 class="agent__name" id="agent-name">
+          Jane Doe
+          <span class="agent__alias">Consultant · Criminal Behavior Specialist</span>
+        </h2>
+
+        <blockquote class="agent__quote">
+          &ldquo;Well, last time was last time! This time, I&rsquo;m telling the truth. Trust me~&rdquo;
+        </blockquote>
+
+        <!-- DATA SINGKAT: ganti isi <dd> sesuai karaktermu -->
+        <dl class="agent__stats">
+          <div><dt>Attribute</dt><dd>Physical</dd></div>
+          <div><dt>Specialty</dt><dd>Anomaly</dd></div>
+          <div><dt>Attack Type</dt><dd>Slash</dd></div>
+          <div><dt>Faction</dt><dd>Criminal Investigation Special Response Team</dd></div>
+          <div><dt>Affiliation</dt><dd>New Eridu Public Security (Consultant)</dd></div>
+          <div><dt>Species</dt><dd>Rat Thiren</dd></div>
+          <div><dt>Birthday</dt><dd>February 16</dd></div>
+          <div><dt>Height</dt><dd>170 cm</dd></div>
+          <div><dt>W-Engine</dt><dd>Sharpened Stinger</dd></div>
+          <div><dt>Voice</dt><dd>EN: Kelsey Jaffer / JP: Yū Shimamura</dd></div>
+        </dl>
+
+        <!-- COMBAT RECORD : tab. Panel di-render dari data di js/page2.js
+             supaya gampang diganti: cukup edit objek SKILLS di sana. -->
+        <div class="skills">
+          <p class="skills__heading">Combat Record</p>
+          <div class="skills__tabs" role="tablist" aria-label="Skill categories" data-skills-tabs></div>
+          <div class="skills__panel" role="tabpanel" tabindex="0" data-skills-panel></div>
+          <p class="skills__note">
+            Signature mechanic — <b>Passion</b>: serangan, Perfect Dodge, dan Defensive Assist
+            mengisi <i>Passion Stream</i>. Penuh = masuk mode <b>Passion</b>
+            (Physical Anomaly Buildup +25%, bonus ATK dari Anomaly Proficiency).
+          </p>
+        </div>
+
+        <!-- AUDIO PLAYER : theme song (asset lokal di /audio) -->
+        <div class="player">
+          <button class="player__toggle" type="button" data-player-toggle aria-label="Play theme song" aria-pressed="false">
+            <span class="player__icon" aria-hidden="true"></span>
+          </button>
+          <div class="player__meta">
+            <p class="player__title">Theme Song <span class="player__badge">local file</span></p>
+            <input class="player__seek" type="range" data-player-seek min="0" max="1000" value="0" step="1" aria-label="Seek theme song">
+            <div class="player__time">
+              <span data-player-current>0:00</span>
+              <span data-player-duration>--:--</span>
+            </div>
+          </div>
+          <audio data-player-audio src="audio/Page1_themeSong.mp3" preload="metadata"></audio>
+        </div>
+
+        <p class="agent__note">Fan-made site. Not affiliated with or endorsed by HoYoverse. Combat data summarized from the public wiki.</p>
+
+      </section>
+    </main>
+
+    <!-- Petunjuk pindah ke halaman berikutnya -->
+    <button class="scroll-hint" type="button" data-action="goto" data-page="page3" aria-label="Go to next page">
+      <span class="scroll-hint__chevrons" aria-hidden="true"></span>
+    </button>
+
+  </div>
+
+  <!-- DOT NAVIGASI SAMPING -->
   <nav class="side-nav" aria-label="Pages">
     <button class="side-dot" type="button" data-action="goto" data-page="page1" aria-label="Page 1"></button>
     <button class="side-dot is-active" type="button" data-action="goto" data-page="page2" aria-label="Page 2" aria-current="page"></button>
-    <button class="side-dot" type="button" disabled aria-label="Page 3 (not available yet)"></button>
+    <button class="side-dot" type="button" data-action="goto" data-page="page3" aria-label="Page 3"></button>
     <button class="side-dot" type="button" disabled aria-label="Page 4 (not available yet)"></button>
     <button class="side-dot" type="button" disabled aria-label="Page 5 (not available yet)"></button>
   </nav>

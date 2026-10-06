@@ -1,46 +1,597 @@
 /* ============================================
-   PAGE 2 : DUMMY PLACEHOLDER STYLES
-   Hanya dipakai di html/page2.html. Ganti nanti
-   saat isi halaman 2 sudah dirancang.
+   PAGE 2 : AGENT FILE (profil karakter)
+   Semua selector diawali #page-2 supaya tidak bocor ke halaman lain.
+   Logo, header, tombol nav, dot samping ada di global.css.
+
+   Konsep visual: "case file" kepolisian New Eridu.
+   Foto karakter dibingkai seperti foto arsip (cocok untuk asset
+   PNG yang background-nya putih polos).
    ============================================ */
 
-#page-2 {
-  background-color: #12141d;
+/* ============================================
+   BACKGROUND + WATERMARK
+   ============================================ */
+#page-2 .page2__bg {
+  background:
+    radial-gradient(90% 70% at 82% 8%, rgba(111, 10, 21, 0.55) 0%, rgba(111, 10, 21, 0) 60%),
+    radial-gradient(70% 60% at 8% 96%, rgba(35, 40, 56, 0.8) 0%, rgba(35, 40, 56, 0) 70%),
+    linear-gradient(160deg, #0b0d12 0%, #12141d 55%, #0b0d12 100%);
 }
 
-#page-2 .page2-container {
+/* Garis grid tipis ala kertas arsip (CSS murni) */
+#page-2 .page2__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 56px);
+}
+
+/* Teks raksasa di belakang konten.
+   -webkit-text-stroke didukung semua browser modern;
+   fallback-nya: warna polos sangat transparan. */
+#page-2 .page2__watermark {
+  position: absolute;
+  right: -0.08em;
+  bottom: -0.12em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(9rem, 24vw, 26rem);
+  line-height: 0.8;
+  text-align: right;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.035);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.07);
+  user-select: none;
+}
+
+/* ============================================
+   LAYOUT UTAMA
+   ============================================ */
+#page-2 .agent {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  text-align: center;
-  color: var(--zzz-yellow);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 72px);
+  align-items: start;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: clamp(20px, 4vh, 48px);
+  padding-bottom: calc(clamp(48px, 8vh, 90px) + env(safe-area-inset-bottom, 0px));
 }
 
-#page-2 .page2-title {
+/* ============================================
+   KOLOM KIRI : FOTO ARSIP
+   ============================================ */
+#page-2 .agent__visual {
+  position: relative;
+  width: clamp(230px, 24vw, 340px);
+  margin-top: clamp(8px, 3vh, 30px);
+}
+
+/* Bingkai "kertas foto": padding putih tebal di bawah untuk caption.
+   Asset JaneDoe.png background-nya putih -> menyatu dengan bingkai. */
+#page-2 .case-photo {
+  position: relative;
+  padding: 10px 10px 46px;
+  background: #f4f1ea;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.4);
+  transform: rotate(-2.5deg);
+  transition: transform 0.35s var(--ease-out);
+  will-change: transform;
+}
+
+#page-2 .case-photo:hover {
+  transform: rotate(0deg);
+}
+
+/* Efek tilt 3D diset inline oleh js/page2.js (data-tilt) */
+#page-2 .case-photo img {
+  width: 100%;
+  height: auto;
+  filter: saturate(1.05);
+}
+
+/* Penjepit kertas di atas foto (CSS murni) */
+#page-2 .case-photo__clip {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  z-index: 2;
+  width: 44px;
+  height: 26px;
+  border: 3px solid #9aa0ad;
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  transform: translateX(-50%) rotate(-4deg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
+}
+
+#page-2 .case-photo__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  padding-inline: 10px;
+  color: #3a3d46;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: clamp(0.72rem, 0.85vw, 0.9rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Lencana pangkat "S" menempel di pojok foto */
+#page-2 .case-photo__rank {
+  position: absolute;
+  top: -18px;
+  right: -14px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: clamp(52px, 4.6vw, 72px);
+  aspect-ratio: 1;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.9rem, 2.6vw, 2.8rem);
+  color: #1a0408;
+  background: linear-gradient(180deg, #fff4cc 0%, #efcf82 42%, #b68632 100%);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  transform: rotate(8deg);
+  clip-path: polygon(0 14%, 100% 0, 96% 86%, 3% 100%);
+}
+
+/* ============================================
+   KOLOM KANAN : DATA AGEN
+   ============================================ */
+#page-2 .agent__info {
+  min-width: 0;
+}
+
+#page-2 .agent__kicker {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: clamp(0.85rem, 1vw, 1.05rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--zzz-gold);
+}
+
+#page-2 .agent__name {
+  margin-top: 0.35rem;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-size: clamp(2.8rem, 5.6vw, 5.5rem);
+  line-height: 0.95;
+  color: transparent;
+  background-image: linear-gradient(180deg, #ffffff 0%, #dadde8 48%, #8b91a6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0.05em 0.1em rgba(0, 0, 0, 0.7));
 }
 
-#page-2 .page2-text {
-  font-size: 1.1rem;
+#page-2 .agent__alias {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.15vw, 1.2rem);
+  letter-spacing: 0.12em;
+  /* Menimpa "color: transparent" + background-clip:text dari .agent__name */
+  color: var(--zzz-red-bright);
+  -webkit-text-fill-color: var(--zzz-red-bright);
+}
+
+#page-2 .agent__quote {
+  margin-top: clamp(14px, 2.4vh, 24px);
+  padding: 4px 0 4px 16px;
+  border-left: 3px solid var(--zzz-gold);
+  font-size: clamp(0.98rem, 1.2vw, 1.15rem);
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--zzz-text-dim);
+  max-width: 56ch;
+}
+
+/* ============================================
+   DATA SINGKAT (definition list)
+   ============================================ */
+#page-2 .agent__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 24px;
+  margin-top: clamp(18px, 3vh, 30px);
+  max-width: 760px;
+}
+
+#page-2 .agent__stats > div {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid rgba(232, 199, 119, 0.5);
+}
+
+#page-2 .agent__stats dt {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--zzz-text-dim);
 }
 
-#page-2 .page2-back {
+#page-2 .agent__stats dd {
+  margin-top: 2px;
+  font-weight: 600;
+  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+  line-height: 1.3;
+}
+
+/* ============================================
+   COMBAT RECORD (tab skill)
+   Markup tab & isi panel dibuat oleh js/page2.js
+   ============================================ */
+#page-2 .skills {
+  margin-top: clamp(22px, 3.6vh, 36px);
+  max-width: 760px;
+}
+
+#page-2 .skills__heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+#page-2 .skills__heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(232, 199, 119, 0.7), transparent);
+}
+
+#page-2 .skills__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-top: 12px;
-  padding: 8px 22px;
+}
+
+#page-2 .skill-tab {
+  padding: 7px 16px;
   border: 1px solid var(--zzz-border);
   font-family: var(--font-ui);
   font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--zzz-text);
-  transition: background-color 0.2s ease;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--zzz-text-dim);
+  transform: skewX(-10deg);
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
-#page-2 .page2-back:hover {
-  background: rgba(255, 255, 255, 0.1);
+#page-2 .skill-tab:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+#page-2 .skill-tab[aria-selected="true"] {
+  background: linear-gradient(180deg, #f5253a 0%, #c30f22 100%);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.45);
+}
+
+#page-2 .skills__panel {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--zzz-border);
+  border-radius: 6px;
+}
+
+#page-2 .skills__panel.is-switching .skill-entry {
+  animation: p2-fade-up 0.35s var(--ease-out) both;
+}
+
+#page-2 .skills__panel.is-switching .skill-entry:nth-child(2) { animation-delay: 0.06s; }
+#page-2 .skills__panel.is-switching .skill-entry:nth-child(3) { animation-delay: 0.12s; }
+
+#page-2 .skill-entry + .skill-entry {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.14);
+}
+
+#page-2 .skill-entry__name {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: clamp(0.98rem, 1.1vw, 1.12rem);
+  letter-spacing: 0.04em;
+  color: var(--zzz-gold);
+}
+
+#page-2 .skill-entry__desc {
+  margin-top: 3px;
+  font-size: clamp(0.88rem, 1vw, 0.98rem);
+  line-height: 1.55;
+  color: var(--zzz-text-dim);
+}
+
+#page-2 .skills__note {
+  margin-top: 12px;
+  font-size: clamp(0.8rem, 0.95vw, 0.92rem);
+  line-height: 1.55;
+  color: var(--zzz-text-dim);
+}
+
+#page-2 .skills__note b { color: var(--zzz-red-bright); }
+
+/* ============================================
+   AUDIO PLAYER (theme song)
+   ============================================ */
+#page-2 .player {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(22px, 3.6vh, 36px);
+  padding: 12px 16px;
+  max-width: 760px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--zzz-border);
+  border-radius: 8px;
+}
+
+#page-2 .player__toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #f5253a 0%, #c30f22 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+#page-2 .player__toggle:hover { filter: brightness(1.12); }
+#page-2 .player__toggle:active { transform: scale(0.93); }
+
+/* Ikon play (segitiga), diganti jadi 2 bar saat .is-playing */
+#page-2 .player__icon {
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent #fff;
+}
+
+#page-2 .player__toggle.is-playing .player__icon {
+  width: 14px;
+  height: 16px;
+  margin-left: 0;
+  border: 0;
+  border-left: 5px solid #fff;
+  border-right: 5px solid #fff;
+}
+
+#page-2 .player__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+#page-2 .player__title {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+}
+
+#page-2 .player__badge {
+  margin-left: 6px;
+  padding: 1px 8px 2px;
+  border: 1px solid rgba(232, 199, 119, 0.55);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zzz-gold);
+  vertical-align: 2px;
+}
+
+/* Slider seek: styling untuk webkit & firefox */
+#page-2 .player__seek {
+  width: 100%;
+  height: 18px;
+  margin-top: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+#page-2 .player__seek::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--zzz-red-bright) 0%, var(--zzz-red-bright) var(--fill, 0%), rgba(255, 255, 255, 0.18) var(--fill, 0%));
+}
+
+#page-2 .player__seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  margin-top: -4.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+#page-2 .player__seek::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+#page-2 .player__seek::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--zzz-red-bright);
+}
+
+#page-2 .player__seek::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+}
+
+#page-2 .player__time {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--zzz-text-dim);
+}
+
+#page-2 .agent__note {
+  margin-top: clamp(18px, 3vh, 28px);
+  font-size: clamp(0.72rem, 0.85vw, 0.9rem);
+  color: var(--zzz-text-dim);
+}
+
+/* ============================================
+   PETUNJUK HALAMAN BERIKUTNYA
+   (pola sama seperti #page-1 .scroll-hint)
+   ============================================ */
+#page-2 .scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 36px;
+  transform: translateX(-50%);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+#page-2 .scroll-hint:hover { opacity: 1; }
+
+#page-2 .scroll-hint__chevrons {
+  position: relative;
+  width: 26px;
+  height: 22px;
+}
+
+#page-2 .scroll-hint__chevrons::before,
+#page-2 .scroll-hint__chevrons::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+#page-2 .scroll-hint__chevrons::before { top: -5px; }
+#page-2 .scroll-hint__chevrons::after  { top: 4px; }
+
+@media (max-height: 640px) {
+  #page-2 .scroll-hint { display: none; }
+}
+
+/* ============================================
+   ANIMASI MASUK
+   ============================================ */
+@keyframes p2-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Animasi hanya di wrapper (.agent__visual), BUKAN di .case-photo:
+   animasi dengan fill "both" akan mengunci transform dan mematikan
+   efek hover + tilt JS pada foto. */
+@keyframes p2-photo-in {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: none; }
+}
+
+#page-2.active .agent__visual {
+  animation: p2-photo-in 0.8s var(--ease-out) 0.2s both;
+}
+
+#page-2.active .agent__info > * {
+  animation: p2-fade-up 0.6s var(--ease-out) both;
+}
+
+#page-2.active .agent__info > *:nth-child(1) { animation-delay: 0.30s; }
+#page-2.active .agent__info > *:nth-child(2) { animation-delay: 0.38s; }
+#page-2.active .agent__info > *:nth-child(3) { animation-delay: 0.46s; }
+#page-2.active .agent__info > *:nth-child(4) { animation-delay: 0.54s; }
+#page-2.active .agent__info > *:nth-child(5) { animation-delay: 0.62s; }
+#page-2.active .agent__info > *:nth-child(6) { animation-delay: 0.70s; }
+#page-2.active .agent__info > *:nth-child(7) { animation-delay: 0.78s; }
+
+/* ============================================
+   TABLET & MOBILE : satu kolom
+   ============================================ */
+@media (max-width: 1023px) {
+  #page-2 .agent {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    max-width: 640px;
+    justify-items: center;
+  }
+
+  #page-2 .agent__visual {
+    margin-top: 8px;
+    width: clamp(210px, 52vw, 300px);
+  }
+
+  #page-2 .agent__info {
+    width: 100%;
+  }
+
+  #page-2 .agent__stats,
+  #page-2 .skills,
+  #page-2 .player {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  #page-2 .agent__stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Tab skill bisa di-scroll menyamping di layar sempit */
+  #page-2 .skills__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+
+  #page-2 .skill-tab {
+    flex: none;
+  }
+
+  #page-2 .page2__watermark {
+    font-size: 34vw;
+    right: 0;
+  }
 }

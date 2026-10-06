@@ -26,7 +26,8 @@
 
   const PAGES = {
     page1: { html: 'html/page1.html', js: 'js/page1.js' },
-    page2: { html: 'html/page2.html', js: null }, // dummy, belum punya js
+    page2: { html: 'html/page2.html', js: 'js/page2.js' },
+    page3: { html: 'html/page3.html', js: 'js/page3.js' },
   };
   const DEFAULT_PAGE = 'page1';
 

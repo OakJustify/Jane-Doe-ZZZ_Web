@@ -1,0 +1,347 @@
+/* =============================================================
+   TAILWIND CSS v4 — SOURCE FILE
+   Zenless Zone Zero: Their Secret Histories (fan-made)
+
+   This is the *source*. The browser never loads this file.
+   Run `npm run build` to compile it -> css/tailwind.css
+   (the compiled file is committed, so viewing the site needs no build)
+   ============================================================= */
+
+@import "tailwindcss";
+
+/* Scan every template + script so class names get generated */
+@source "../landing.html";
+@source "../js/landing.js";
+
+/* -------------------------------------------------------------
+   1. DESIGN TOKENS  (v4 replaces tailwind.config.js entirely)
+   ------------------------------------------------------------- */
+@theme {
+  /* Surfaces & accents */
+  --color-ink: #0b0d12;          /* Background  — deep charcoal   */
+  --color-ink-soft: #10141c;     /* Raised background             */
+  --color-glass: #161922;        /* Card surface — dark glass     */
+  --color-neon: #ff5500;         /* Accent primary  — neon orange */
+  --color-volt: #ffe600;         /* Accent secondary — vibrant yellow */
+
+  /* Text */
+  --color-mist: #94a3b8;         /* Muted grey                   */
+
+  /* Typography — same Google Fonts request the rest of the project
+     already makes, so we add zero extra network cost. */
+  --font-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Barlow", Arial, Helvetica, sans-serif;
+
+  /* Motion */
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-scan: scan 2.4s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-blink: blink 1.6s steps(2, start) infinite;
+  --animate-sheen: sheen 0.9s ease-in-out infinite;
+  --animate-slide-in: slide-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes scan {
+    from { transform: translateY(-100%); }
+    to   { transform: translateY(100%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-14px); }
+  }
+  @keyframes blink {
+    50%      { opacity: 0.25; }
+  }
+  @keyframes sheen {
+    /* Sweeps a highlight across the layer by moving its background, so the
+       layer itself never moves and needs no clipping from its parent. */
+    from { background-position: 140% 0; }
+    to   { background-position: -140% 0; }
+  }
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* -------------------------------------------------------------
+   2. BASE LAYER
+   ------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header height + breathing room for anchor targets */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: #fff;
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    line-height: 0.95;
+  }
+
+  ::selection {
+    background-color: var(--color-neon);
+    color: #fff;
+  }
+
+  /* Visible, on-brand keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-volt);
+    outline-offset: 3px;
+  }
+
+  /* Slim dark scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-neon) var(--color-ink);
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-ink); }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-neon), #b23c00);
+    border: 2px solid var(--color-ink);
+  }
+
+  /* Visually-hidden skip link.
+     The !important flags are deliberate: preflight sets border-box sizing,
+     so a plain `width:1px` loses to padding utilities (px-5/py-2) and the
+     element renders as a visible orange box instead of hiding. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+  }
+
+  /* Native <dialog> — hidden state handled by the UA, we only style the open box */
+  dialog {
+    /* Preflight resets margin to 0 on every element, which destroys the
+       UA's `margin: auto` and would pin a modal to the top-left corner. */
+    margin: auto;
+    padding: 0;
+    border: 0;
+    max-width: 100%;
+    max-height: 100%;
+    background: transparent;
+    color: #fff;
+  }
+  dialog::backdrop {
+    background: rgb(0 0 0 / 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Accessibility: honour the OS "reduce motion" setting */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* -------------------------------------------------------------
+   3. CUSTOM UTILITIES
+   Defined with @utility so Tailwind variants (hover:, md:, …)
+   keep working on them, exactly like built-in utilities.
+   ------------------------------------------------------------- */
+
+/* 3a. Subtle blueprint grid — the cyberpunk backdrop */
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility grid-bg-sm {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* 3b. Angled / sloped geometry */
+@utility clip-notch-r {
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+}
+
+@utility clip-notch-l {
+  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@utility clip-corner {
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+}
+
+/* Smaller notch for compact icon buttons (36–44px), where a 28px
+   cut would swallow most of the shape. */
+@utility clip-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+}
+
+@utility clip-slant-top {
+  clip-path: polygon(0 14px, 100% 0, 100% 100%, 0 100%);
+}
+
+/* 3c. Hazard stripes — signature ZZZ/industrial accent */
+@utility hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-volt) 0 14px,
+    #0b0d12 14px 28px
+  );
+}
+
+/* 3d. Neon glow that responds to the active faction colour */
+@utility glow-accent {
+  box-shadow: 0 0 20px rgb(from var(--accent, #ff5500) r g b / 0.6);
+}
+
+@utility glow-accent-sm {
+  box-shadow: 0 0 12px rgb(from var(--accent, #ff5500) r g b / 0.45);
+}
+
+/* 3e. Text treatments */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.55);
+}
+
+@utility text-outline-neon {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-neon);
+}
+
+/* 3f. Agent-tinted states — follow the selected Agent's own colour
+   via --agent-c (set per roster button). */
+@utility agent-accent-text {
+  color: var(--agent-c, #ff5500);
+}
+
+@utility agent-accent-glow {
+  border-color: var(--agent-c, #ff5500);
+  box-shadow: 0 0 20px rgb(from var(--agent-c, #ff5500) r g b / 0.6);
+}
+
+/* 3g. Hologram scanline overlay for portrait placeholders */
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.06) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+/* 3h. Diagonal sheen sweep on CTA hover.
+   The layer is exactly inset:0 and only its background-position moves,
+   so it can never spill outside the button — no overflow/clip needed. */
+@utility sheen {
+  position: relative;
+}
+@utility sheen-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgb(255 255 255 / 0.45) 50%,
+    transparent 62%
+  );
+  background-size: 260% 100%;
+  background-position: 140% 0;
+  background-repeat: no-repeat;
+}
+
+/* 3i. Section eyebrow label ("// NEWS") */
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* -------------------------------------------------------------
+   4. SMALL COMPOSITE CLASSES (static, no variants needed)
+   ------------------------------------------------------------- */
+@layer components {
+  /* Skewed button shell: the skew lives on the wrapper, the label
+     counter-skews so text stays perfectly readable. */
+  .btn-skew {
+    transform: skewX(-11deg);
+  }
+  .btn-skew > * {
+    transform: skewX(11deg);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  /* Frosted panel used by cards + header */
+  .glass {
+    background-color: rgb(22 25 34 / 0.62);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  /* Vertical social rail */
+  .rail::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 50%;
+    width: 1px;
+    translate: -50% 0;
+    background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 0.18), transparent);
+  }
+
+  /* Stat bar fill — width is driven by an inline --value from JS */
+  .stat-bar {
+    background-color: rgb(255 255 255 / 0.08);
+  }
+  .stat-bar > span {
+    background: linear-gradient(90deg, var(--color-neon), var(--color-volt));
+    box-shadow: 0 0 14px rgb(from var(--accent, #ff5500) r g b / 0.7);
+    transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* CRT-ish scan sweep over the hero video */
+  .scan-sweep {
+    background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 0.05), transparent);
+  }
+
+  /* Scroll-in reveal. Applied by JS (IntersectionObserver) so it stays
+     progressive: without JS the content is simply visible. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
