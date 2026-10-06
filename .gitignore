@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# Hasil `npm run build` (dibuat ulang di server Vercel, jangan di-commit)
+public/
+
+# OS noise
+.DS_Store
+Thumbs.db

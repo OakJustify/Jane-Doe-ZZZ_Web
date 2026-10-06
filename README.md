@@ -134,6 +134,25 @@ File `css/tailwind.css` yang sudah di-commit sengaja **belum** di-minify
 (±59 KB, ≈9 KB gzip) supaya mudah dibaca dan bisa diaudit. Jalankan
 `npm run build` sebelum deploy untuk menghasilkan versi minified (±48 KB).
 
+### Deploy ke Vercel
+
+Vercel tidak mengenali proyek ini sebagai framework apa pun, jadi ia
+memakai default **Output Directory = `public`**. Karena itu
+`npm run build` punya dua tahap:
+
+1. Tailwind CLI mengompilasi `css/tailwind.src.css` → `css/tailwind.css`.
+2. `tools/build-static.mjs` menyalin seluruh file statis ke `public/`,
+   yang menjadi folder yang benar-benar dilayani Vercel.
+
+Kalau tahap 2 dilewati, build akan gagal dengan
+`No Output Directory named "public" found after the Build completed`.
+
+Tidak perlu mengubah apa pun di Dashboard Vercel — `vercel.json` sudah
+menetapkan `buildCommand` dan `outputDirectory`.
+
+`public/` tidak di-commit (ada di `.gitignore`), karena selalu dibangun ulang
+di server.
+
 ### Isi halaman
 
 - **Nav** — sticky + `backdrop-blur`, berubah jadi solid saat di-scroll,
@@ -221,10 +240,11 @@ python3 tools/audit_html.py     # cek nesting tag, aset lokal, hook id JS
 │   ├── page3.js        # Logika halaman 3 (lightbox, dialog video)
 │   └── landing.js      # Logika landing page Tailwind (tab, roster, modal)
 ├── html/               # Markup halaman SPA (page1/2/3.html)
-├── tools/              # Script audit (dev-only, tidak dipakai saat deploy)
+├── tools/              # Script audit + build output (audit-classes, build-static)
 ├── pictures/           # Asset gambar & logo (lihat inventaris di bawah)
 ├── videos/             # Asset video background
-└── audio/              # Asset musik (theme song)
+├── audio/              # Asset musik (theme song)
+└── public/             # Hasil `npm run build` — folder yang dilayani Vercel
 ```
 
 ---
@@ -321,7 +341,8 @@ python3 tools/audit_html.py     # cek nesting tag, aset lokal, hook id JS
   `ffmpeg -i input.webm -crf 30 -b:v 0 output.webm`.
 - Kompres PNG besar (`JaneDoe.png`, `preview.png`, `janedoe_favicon.png`) lewat
   [squoosh.app](https://squoosh.app) atau `pngquant`.
-- GIF di README tidak perlu di-deploy (boleh dihapus dari folder publish).
+- GIF di README (`pictures/bg-video*.gif`, total ±75 MB) sudah otomatis
+  dilewati oleh `tools/build-static.mjs`, jadi tidak ikut ter-deploy.
 
 ## ⚠️ Disclaimer
 
